@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushma Vunnam | Data Engineer Portfolio</title>
+    <meta name="description" content="Sushma Vunnam - Data Engineer. Explore my professional portfolio visualized as an interactive data pipeline DAG.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Canvas for Grid -->
+    <div class="background-grid"></div>
+
+    <!-- Top Navigation / Toolbar -->
+    <header class="toolbar">
+        <div class="logo">
+            <span class="logo-icon">▲</span> SUSHMA::DATA_ENGINEER
+        </div>
+        <div class="controls">
+            <button id="trigger-dag-btn" class="btn btn-primary">
+                <span class="icon">▶</span> Trigger DAG
+            </button>
+            <button id="clear-dag-btn" class="btn btn-secondary">
+                <span class="icon">↺</span> Clear State
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="workspace">
+        
+        <!-- SVG container to draw the connecting edges between nodes -->
+        <svg id="edges-container" width="100%" height="100%"></svg>
+
+        <!-- DAG Nodes container -->
+        <div class="nodes-container">
+            <!-- Node Level 1 -->
+            <div class="dag-layer" id="layer-1">
+                <div class="dag-node" id="node-bio" data-status="pending" data-title="extract_bio">
+                    <div class="node-status-color"></div>
+                    <div class="node-content">
+                        <span class="node-icon">📦</span>
+                        <span class="node-label">extract_bio.py</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node Level 2 -->
+            <div class="dag-layer" id="layer-2">
+                <div class="dag-node" id="node-skills" data-status="pending" data-title="transform_skills">
+                    <div class="node-status-color"></div>
+                    <div class="node-content">
+                        <span class="node-icon">⚙️</span>
+                        <span class="node-label">transform_skills.sql</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node Level 3 -->
+            <div class="dag-layer" id="layer-3">
+                <div class="dag-node" id="node-experience" data-status="pending" data-title="load_experience">
+                    <div class="node-status-color"></div>
+                    <div class="node-content">
+                        <span class="node-icon">💾</span>
+                        <span class="node-label">load_experience.yml</span>
+                    </div>
+                </div>
+                <div class="dag-node" id="node-projects" data-status="pending" data-title="deploy_projects">
+                    <div class="node-status-color"></div>
+                    <div class="node-content">
+                        <span class="node-icon">🚀</span>
+                        <span class="node-label">deploy_projects.sh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Side Panel for Content Details -->
+    <aside class="details-panel" id="details-panel">
+        <div class="panel-header">
+            <h2 id="panel-title">Task Details</h2>
+            <button id="close-panel-btn" class="icon-btn">✕</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-metadata">
+                <p><strong>Operator:</strong> <span class="monospaced">BashOperator</span></p>
+                <p><strong>State:</strong> <span id="panel-state-badge" class="badge badge-pending">Pending</span></p>
+                <p><strong>Duration:</strong> <span id="panel-duration">0.00s</span></p>
+            </div>
+            
+            <div class="panel-log-section">
+                <h3>View Logs</h3>
+                <div id="panel-logs" class="log-window">
+                    <p class="log-line">Waiting for task execution to complete...</p>
+                </div>
+            </div>
+
+            <div class="panel-rendered-content" id="panel-content">
+                <!-- Dynamic content injected here based on node clicked -->
+            </div>
+        </div>
+    </aside>
+
+    <script src="script.js"></script>
+</body>
+</html>
