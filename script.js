@@ -32,7 +32,26 @@ const nodeDataMap = {
             <h3>About Me</h3>
             <p>I am a Data Engineer with 3+ years of experience building large-scale Spark-based data pipelines using Java, PySpark, and SQL. I specialize in designing batch and streaming systems capable of handling 100M+ records daily.</p>
             <p>I am deeply passionate about <strong>Machine Learning Infrastructure</strong>, performance optimization across cloud platforms (Azure/AWS), and modernizing enterprise analytics workflows.</p>
-            <br>
+            
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <span class="metric-value">100M+</span>
+                    <span class="metric-label">Daily Records Processed</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-value">600M+</span>
+                    <span class="metric-label">Records/Batch Run</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-value">50M+</span>
+                    <span class="metric-label">Events Per Day</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-value">80%</span>
+                    <span class="metric-label">Spark Perf. Boost</span>
+                </div>
+            </div>
+
             <h3>Education</h3>
             <ul>
                 <li><strong>MS, Data Analytics Engineering</strong> (GPA: 3.70) - George Mason University, USA</li>
@@ -51,26 +70,48 @@ const nodeDataMap = {
         content: `
             <h3>Core Engineering Competencies</h3>
             
-            <h4>Big Data & Streaming</h4>
-            <ul>
-                <li><strong>Distributed Compute:</strong> Apache Spark (PySpark, Scala, Java), Hadoop/HDFS, Hive</li>
-                <li><strong>Streaming:</strong> Apache Kafka, Micro-Batch Processing, Harmony Platform</li>
-                <li><strong>Storage Formats:</strong> Parquet, Delta Lake, JSON, ORC</li>
-            </ul>
+            <h4>Big Data & Distributed Systems</h4>
+            <div class="tech-badges">
+                <span class="tech-badge">Apache Spark</span>
+                <span class="tech-badge">PySpark</span>
+                <span class="tech-badge">Scala</span>
+                <span class="tech-badge">Hadoop/HDFS</span>
+                <span class="tech-badge">Hive</span>
+            </div>
 
-            <h4>Cloud & Infrastructure-as-Code</h4>
-            <ul>
-                <li><strong>Cloud Ecosystems:</strong> AWS (Bedrock, EC2, S3), Azure, GCP (GCS)</li>
-                <li><strong>Orchestration:</strong> Apache Airflow, Workflow Automation, Metadata-Driven orchestration</li>
-                <li><strong>DevOps & Monitoring:</strong> Docker, Git, CI/CD, Grafana, Prometheus, Splunk</li>
-            </ul>
+            <h4>Streaming Analytics</h4>
+            <div class="tech-badges">
+                <span class="tech-badge">Apache Kafka</span>
+                <span class="tech-badge">Spark Streaming</span>
+                <span class="tech-badge">Micro-batch Processing</span>
+            </div>
 
-            <h4>Languages & Frameworks</h4>
-            <ul>
-                <li><strong>Languages:</strong> Java (8/17), Python (Flask, FastAPI), SQL, Scala, Bash/Shell</li>
-                <li><strong>Databases:</strong> Apache Cassandra, Azure SQL, PostgreSQL, MongoDB</li>
-                <li><strong>Data Science & AI:</strong> PyTorch, Pandas, MLflow, Prompt Engineering (Claude, Sonnet), AWS Bedrock</li>
-            </ul>
+            <h4>Databases & Storage Formats</h4>
+            <div class="tech-badges">
+                <span class="tech-badge">Apache Cassandra</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">Delta Lake</span>
+                <span class="tech-badge">Parquet / ORC</span>
+            </div>
+
+            <h4>Cloud, Orchestration & Observability</h4>
+            <div class="tech-badges">
+                <span class="tech-badge">AWS (Bedrock, EC2)</span>
+                <span class="tech-badge">Azure</span>
+                <span class="tech-badge">Apache Airflow</span>
+                <span class="tech-badge">Prometheus</span>
+                <span class="tech-badge">Grafana</span>
+                <span class="tech-badge">Docker / CI/CD</span>
+            </div>
+            
+            <h4>Programming & AI</h4>
+            <div class="tech-badges">
+                <span class="tech-badge">Java (8/17)</span>
+                <span class="tech-badge">Python (FastAPI)</span>
+                <span class="tech-badge">SQL</span>
+                <span class="tech-badge">Prompt Eng (Claude, Sonnet)</span>
+            </div>
         `
     },
     'node-experience': {
@@ -82,25 +123,39 @@ const nodeDataMap = {
             "[SUCCESS] Load complete. 100M+ records processed daily."
         ],
         content: `
-            <h3>Professional Experience</h3>
+            <h3>Work Experience (Architecture)</h3>
             
-            <p><strong>Data Engineer @ Walmart Global Tech</strong> <span class="monospaced">(Dec 2024 - Present)</span></p>
-            <ul>
-                <li>Built a real-time marketplace data pipeline using <strong>Kafka (Java)</strong> to ingest product metadata and pricing updates, enabling accurate downstream catalog analytics.</li>
-                <li>Designed a large-scale batch framework of 7 interconnected <strong>Spark</strong> pipelines handling 600M+ records per run.</li>
-                <li>Delivered an 80% improvement in Spark job performance by tuning AQE, optimizing partitioning, caching, and broadcast joins.</li>
-            </ul>
+            <h4>Walmart Global Tech <span class="monospaced" style="font-size: 0.8em; font-weight: normal;">(Dec 2024 - Present)</span></h4>
+            <p>Designed and built a real-time marketplace data pipeline capable of handling high-throughput catalog streams and 600M+ batch records.</p>
+            
+            <div class="arch-flow-container">
+                <div class="arch-flow">
+                    <div class="arch-node">📦 Marketplace Events<span class="arch-subtext">50M+ / day</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #d97706;">♨️ Apache Kafka<span class="arch-subtext">Java Consumers</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #eab308;">⚡ Apache Spark<span class="arch-subtext">AQE Optimized (80% boost)</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #3b82f6;">🗄️ Enterprise Data Lake<span class="arch-subtext">Delta / Harmony Platform</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #10b981;">📊 Analytics & Observability<span class="arch-subtext">Prometheus / Grafana</span></div>
+                </div>
+            </div>
+            
+            <h4>Accenture <span class="monospaced" style="font-size: 0.8em; font-weight: normal;">(Feb 2021 - Jun 2022)</span></h4>
+            <p>Built automated data ingestion workflows handling 10M+ daily records from heterogeneous sources (SAP, Oracle, flat files).</p>
 
-            <p><strong>Software Trainee @ UCode Technologies</strong> <span class="monospaced">(Jun 2024 - Nov 2024)</span></p>
-            <ul>
-                <li>Developed backend data processing services using Python (Flask/FastAPI) and built ETL pipelines integrating MySQL.</li>
-            </ul>
-
-            <p><strong>Associate Software Engineer @ Accenture</strong> <span class="monospaced">(Feb 2021 - Jun 2022)</span></p>
-            <ul>
-                <li>Built automated data ingestion workflows using Python, SQL, and <strong>Apache Spark</strong> handling 10M+ daily records from SAP systems and CSV files.</li>
-                <li>Created data transformation logic using PySpark and implemented monitoring mechanisms with Python scripts and logging frameworks.</li>
-            </ul>
+            <div class="arch-flow-container" style="padding: 16px;">
+                <div class="arch-flow">
+                    <div class="arch-node">🗃️ Legacy Systems<span class="arch-subtext">SAP / CSV / Oracle</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #8b5cf6;">🐍 Python / SQL ETL<span class="arch-subtext">Custom Ingestion DAGs</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #eab308;">⚡ PySpark Cleansing<span class="arch-subtext">Schema validation</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #3b82f6;">🏢 Data Warehouse<span class="arch-subtext">Analytics Ready</span></div>
+                </div>
+            </div>
         `
     },
     'node-projects': {
@@ -112,18 +167,33 @@ const nodeDataMap = {
             "[SUCCESS] All pipeline artifacts deployed successfully."
         ],
         content: `
-            <h3>Completed & Target Projects</h3>
+            <h3>Featured Projects & Code</h3>
             
-            <h4>1. Generative AI Chatbot (AWS Bedrock)</h4>
-            <p>Developed a multi-model AI chatbot benchmarking Claude, Titan, and Sonnet on reasoning quality. Built structured prompt engineering templates to evaluate LLM consistency, identifying Claude as the top-performing model. Presented findings to the CENTRL ITS team.</p>
-            <br>
+            <h4>1. Enterprise PySpark Pipeline</h4>
+            <p>A scalable ETL pipeline processing 50M+ records. Delivered a 45% performance improvement through strict partition strategies and Adaptive Query Execution.</p>
             
-            <h4>2. Enterprise PySpark Pipeline</h4>
-            <p>Built a scalable ETL pipeline using PySpark to ingest, clean, and aggregate 50M+ records. Designed Airflow DAGs for ingestion and validation, modeled curated datasets into star schemas, and improved job performance by 45% using optimized window functions.</p>
-            <br>
+            <div class="code-snippet-container">
+<pre><code><span class="code-comment">// Sample Spark Optimization Parameters</span>
+<span class="code-keyword">spark</span>.conf.<span class="code-method">set</span>(<span class="code-string">"spark.sql.adaptive.enabled"</span>, <span class="code-string">"true"</span>)
+<span class="code-keyword">spark</span>.conf.<span class="code-method">set</span>(<span class="code-string">"spark.sql.shuffle.partitions"</span>, <span class="code-string">"200"</span>)
+<span class="code-keyword">spark</span>.conf.<span class="code-method">set</span>(<span class="code-string">"spark.sql.adaptive.coalescePartitions.enabled"</span>, <span class="code-string">"true"</span>)</code></pre>
+            </div>
 
-            <h4>3. Current Working Goal: Real-Time RAG Pipeline Target</h4>
-            <p><strong>[Currently exploring]</strong> Extending my Bedrock chatbot experience into a continuous ingestion data pipeline that streams documentation via <strong>Kafka</strong>, and upserts vectors directly into a <strong>Milvus</strong> vector database to serve live LLM queries.</p>
+            <h4>2. Generative AI Chatbot (AWS Bedrock)</h4>
+            <p>Developed a multi-model AI benchmarking framework. Designed structured prompt engineering templates to evaluate LLM reasoning, consistently identifying Claude 3 as the top-performing model over Titan.</p>
+
+            <div class="arch-flow-container" style="padding: 16px; margin: 16px 0;">
+                <div class="arch-flow">
+                    <div class="arch-node">👤 User Query<span class="arch-subtext">Zero/Few Shot</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #8b5cf6;">🧠 AWS Bedrock API<span class="arch-subtext">Claude / Titan / Sonnet</span></div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-node" style="border-color: #10b981;">📈 Evaluation Framework<span class="arch-subtext">Accuracy Metrics</span></div>
+                </div>
+            </div>
+
+            <h4>3. Enterprise Target: Native Milvus Integration</h4>
+            <p>Currently researching the deployment architecture for feeding streaming <strong>Kafka</strong> topics concurrently into a <strong>Milvus</strong> vector database for low-latency Retrieval-Augmented Generation (RAG) within corporate boundaries.</p>
         `
     }
 }
@@ -284,3 +354,49 @@ clearBtn.addEventListener('click', clearDagState);
 
 // INIT
 setTimeout(drawEdges, 100); // Draw after brief delay to ensure DOM is ready
+
+// ----------------------------------------------------
+// 4. Gatekeeper Modal
+// ----------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    const connectBtn = document.getElementById('connect-btn');
+    const nameInput = document.getElementById('visitor-name-input');
+    const modalInputGroup = document.querySelector('.modal-input-group');
+    const modalStatus = document.getElementById('modal-greeting-status');
+    const greetingText = document.getElementById('greeting-text');
+    const modalOverlay = document.getElementById('welcome-modal');
+    const appWrapper = document.getElementById('app-wrapper');
+
+    connectBtn.addEventListener('click', () => {
+        const rawName = nameInput.value.trim();
+        const visitorName = rawName ? rawName : "Guest";
+
+        // Hide input, show loading status
+        modalInputGroup.style.display = 'none';
+        modalStatus.classList.remove('hidden');
+        
+        // Personalized Greeting
+        greetingText.innerHTML = `Hi <strong style="color:var(--text-primary)">${visitorName}</strong>, initializing data pipeline...`;
+
+        // Simulate connection delay then reveal portfolio
+        setTimeout(() => {
+            modalOverlay.classList.add('fade-out');
+            appWrapper.classList.remove('blurred');
+            
+            // Remove modal from DOM after fade out completes
+            setTimeout(() => {
+                modalOverlay.style.display = 'none';
+                // Automatically run the pipeline for them!
+                triggerDag();
+            }, 600);
+            
+        }, 1800); // 1.8 seconds to read the personalized message
+    });
+    
+    // Allow 'Enter' key to submit
+    nameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            connectBtn.click();
+        }
+    });
+});

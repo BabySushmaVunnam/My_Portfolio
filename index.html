@@ -11,17 +11,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Background Canvas for Grid -->
-    <div class="background-grid"></div>
+    <!-- Welcome Gate Modal -->
+    <div id="welcome-modal" class="modal-overlay">
+        <div class="modal-card" id="modal-card">
+            <h2 class="modal-title">Authorized Access Required</h2>
+            <p class="modal-desc">Please identify yourself to establish a secure data pipeline connection.</p>
+            <div class="modal-input-group">
+                <input type="text" id="visitor-name-input" placeholder="Enter your name (e.g. Recruiter, Google)" autocomplete="off" />
+                <button id="connect-btn" class="btn btn-primary">Connect</button>
+            </div>
+            <div id="modal-greeting-status" class="modal-status hidden">
+                <div class="spinner"></div>
+                <span id="greeting-text">Initializing...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wrapper to blur the background content -->
+    <div id="app-wrapper" class="blurred">
+        
+        <!-- Background Canvas for Grid -->
+        <div class="background-grid"></div>
 
     <!-- Top Navigation / Toolbar -->
     <header class="toolbar">
         <div class="logo">
-            <span class="logo-icon">▲</span> SUSHMA::DATA_ENGINEER
+            <span class="logo-icon">▲</span> SUSHMA VUNNAM
         </div>
         <div class="controls">
             <button id="trigger-dag-btn" class="btn btn-primary">
-                <span class="icon">▶</span> Trigger DAG
+                <span class="icon">▶</span> Run Pipeline
             </button>
             <button id="clear-dag-btn" class="btn btn-secondary">
                 <span class="icon">↺</span> Clear State
@@ -39,40 +58,40 @@
         <div class="nodes-container">
             <!-- Node Level 1 -->
             <div class="dag-layer" id="layer-1">
-                <div class="dag-node" id="node-bio" data-status="pending" data-title="extract_bio">
+                <div class="dag-node" id="node-bio" data-status="pending" data-title="System Initialize: Bio">
                     <div class="node-status-color"></div>
                     <div class="node-content">
-                        <span class="node-icon">📦</span>
-                        <span class="node-label">extract_bio.py</span>
+                        <span class="node-icon">👤</span>
+                        <span class="node-label">1. Profile & Education</span>
                     </div>
                 </div>
             </div>
 
             <!-- Node Level 2 -->
             <div class="dag-layer" id="layer-2">
-                <div class="dag-node" id="node-skills" data-status="pending" data-title="transform_skills">
+                <div class="dag-node" id="node-skills" data-status="pending" data-title="Processing: Skills">
                     <div class="node-status-color"></div>
                     <div class="node-content">
                         <span class="node-icon">⚙️</span>
-                        <span class="node-label">transform_skills.sql</span>
+                        <span class="node-label">2. Technical Skills Matrix</span>
                     </div>
                 </div>
             </div>
 
             <!-- Node Level 3 -->
             <div class="dag-layer" id="layer-3">
-                <div class="dag-node" id="node-experience" data-status="pending" data-title="load_experience">
+                <div class="dag-node" id="node-experience" data-status="pending" data-title="Loading: Experience">
                     <div class="node-status-color"></div>
                     <div class="node-content">
-                        <span class="node-icon">💾</span>
-                        <span class="node-label">load_experience.yml</span>
+                        <span class="node-icon">💼</span>
+                        <span class="node-label">3. Work Experience</span>
                     </div>
                 </div>
-                <div class="dag-node" id="node-projects" data-status="pending" data-title="deploy_projects">
+                <div class="dag-node" id="node-projects" data-status="pending" data-title="Deploying: Projects">
                     <div class="node-status-color"></div>
                     <div class="node-content">
                         <span class="node-icon">🚀</span>
-                        <span class="node-label">deploy_projects.sh</span>
+                        <span class="node-label">4. Portfolio Projects</span>
                     </div>
                 </div>
             </div>
@@ -106,6 +125,8 @@
         </div>
     </aside>
 
+    </div> <!-- End app-wrapper -->
+    
     <script src="script.js"></script>
 </body>
 </html>
