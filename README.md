@@ -1,182 +1,29 @@
-<div align="center">
+# Sushma Vunnam — Data Engineer Portfolio
 
-# ⚡ Sushma Vunnam — Data Engineer Portfolio
+An interactive portfolio built to look, feel, and run like a real Apache Airflow DAG. Enter your name, hit Connect, and watch the pipeline execute — nodes light up in dependency order, edges animate, and each task reveals the story behind my career.
 
-**An interactive, DAG-driven portfolio** — built to think, feel, and run like a real data pipeline.
+## About Me
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Open_Portfolio-6366f1?style=for-the-badge)](./index.html)
-[![Tech](https://img.shields.io/badge/Stack-HTML%20%7C%20CSS%20%7C%20JS-0ea5e9?style=for-the-badge)]()
-[![Data](https://img.shields.io/badge/Scale-100M%2B_Records%2FDay-10b981?style=for-the-badge)]()
+I'm a Data Engineer with 3+ years of experience building large-scale Spark-based data pipelines using Java, PySpark, and SQL. I specialize in designing batch and streaming systems that handle 100M+ records daily, and I'm deeply passionate about Machine Learning Infrastructure, performance optimization on cloud platforms (Azure/AWS), and modernizing enterprise analytics workflows.
 
-</div>
+## Experience
 
----
+At **Walmart Global Tech** (Dec 2024 – Present), I design and maintain real-time marketplace pipelines processing 50M+ events per day and 600M+ records per batch run. The stack spans Apache Kafka, Apache Spark with Adaptive Query Execution (80% performance boost), and Delta Lake on their internal Harmony platform, all monitored with Prometheus and Grafana.
 
-## 🧠 About This Portfolio
+At **Accenture** (Feb 2021 – Jun 2022), I built automated data ingestion workflows pulling 10M+ daily records from heterogeneous sources — SAP, Oracle, and flat files — transforming them with PySpark and loading into an analytics-ready data warehouse.
 
-This isn't a traditional resume page. It's a **live simulation of an Apache Airflow DAG** — the same kind of infrastructure I build professionally.
+## Projects
 
-> Enter your name → the pipeline runs → nodes execute in dependency order → your career story unfolds.
+The **Enterprise PySpark Pipeline** processes 50M+ records end-to-end, achieving a 45% throughput improvement through strict partition strategies and AQE tuning. The **Generative AI Chatbot on AWS Bedrock** is a multi-model benchmarking framework I built using zero-shot and few-shot prompt engineering to evaluate Claude 3 Sonnet vs. Titan — Claude 3 won consistently. I'm currently researching a **native Milvus integration** to stream Kafka topics into a vector database for low-latency RAG within enterprise boundaries.
 
-Every section is a **DAG task node** with real-time status (Pending → Running → Success), animated SVG edges, and structured log outputs that mirror what you'd see in a real orchestration platform.
+## Education
 
----
+MS in Data Analytics Engineering (GPA 3.70) from George Mason University, USA. B.Tech in Electrical & Electronics Engineering (GPA 7.0) from SASTRA University, India.
 
-## ✨ Live Features
+## Running Locally
 
-| Feature | Description |
-|---|---|
-| 🔐 **Gatekeeper Modal** | Personalized visitor authentication with a simulated connection handshake |
-| 🕸️ **Interactive DAG** | Clickable pipeline nodes connected by animated SVG Bézier edges |
-| ▶️ **Run Pipeline** | Triggers realistic execution — nodes turn Running → Success with staggered delays |
-| 📋 **Details Side Panel** | Click any node to reveal logs, metadata, architecture diagrams & code snippets |
-| 📡 **Live Log Stream** | Color-coded `[INFO]`, `[WARN]`, `[SUCCESS]` log lines per task state |
-| 📐 **Architecture Flows** | Visual flow diagrams embedded inside each node's detail panel |
-| 🔄 **Responsive Edges** | SVG edges redraw dynamically on window resize |
-| ⌨️ **Keyboard Support** | Press `Enter` in the modal to connect instantly |
+No build step needed — just open `index.html` in your browser, enter your name, and click **Connect**.
 
 ---
 
-## 🗂️ DAG Structure
-
-```
-node-bio ──────────────────── node-skills
-                                    │
-                    ┌───────────────┴───────────────┐
-                    ▼                               ▼
-            node-experience                  node-projects
-```
-
-| Node | File | Description |
-|---|---|---|
-| 👤 `node-bio` | `extract_bio.py` | Profile, education, and impact metrics |
-| ⚙️ `node-skills` | `transform_skills.sql` | Full technical skills matrix |
-| 💼 `node-experience` | `load_experience.yml` | Work history with architecture diagrams |
-| 🚀 `node-projects` | `deploy_projects.sh` | Featured projects with live code snippets |
-
----
-
-## 📊 Impact at a Glance
-
-<div align="center">
-
-| Metric | Value |
-|:---:|:---:|
-| 📦 Daily Records Processed | **100M+** |
-| 🔁 Records per Batch Run | **600M+** |
-| 📡 Events Per Day | **50M+** |
-| ⚡ Spark Performance Boost | **80%** via AQE |
-| 🏎️ ETL Throughput Gain | **45%** via partition optimization |
-
-</div>
-
----
-
-## 🛠️ Tech Stack
-
-**Big Data & Distributed Systems**
-`Apache Spark` `PySpark` `Scala` `Hadoop/HDFS` `Hive`
-
-**Streaming & Messaging**
-`Apache Kafka` `Spark Streaming` `Micro-batch Processing`
-
-**Databases & Storage**
-`Apache Cassandra` `PostgreSQL` `MongoDB` `Delta Lake` `Parquet / ORC`
-
-**Cloud, Orchestration & Observability**
-`AWS (Bedrock, EC2)` `Azure` `Apache Airflow` `Prometheus` `Grafana` `Docker / CI/CD`
-
-**Languages & AI**
-`Java 8/17` `Python (FastAPI)` `SQL` `Prompt Engineering (Claude, Sonnet)`
-
----
-
-## 💼 Experience Timeline
-
-```
-Dec 2024 – Present   🏢 Walmart Global Tech
-                      Real-time marketplace pipeline · Kafka → Spark (AQE) → Delta Lake
-                      50M+ events/day · 600M+ records/batch · Prometheus/Grafana observability
-
-Feb 2021 – Jun 2022  🌐 Accenture
-                      Automated ingestion from SAP, Oracle, flat files · 10M+ records/day
-                      PySpark cleansing → Data Warehouse (analytics-ready)
-```
-
----
-
-## 🚀 Featured Projects
-
-### 1. Enterprise PySpark Pipeline
-- Processes **50M+ records** end-to-end
-- **45% performance improvement** through partition strategies + AQE
-- Spark config tuned with `coalescePartitions`, `shuffle.partitions`, and adaptive planning
-
-### 2. Generative AI Chatbot — AWS Bedrock
-- Multi-model benchmarking framework (Claude 3 Sonnet vs. Titan)
-- Structured prompt engineering templates (zero-shot / few-shot)
-- Claude 3 identified as consistently top-performing model
-
-### 3. Native Milvus Integration (In Progress)
-- Streaming Kafka topics → Milvus vector database
-- Low-latency RAG (Retrieval-Augmented Generation) within enterprise boundaries
-
----
-
-## 📁 Project Structure
-
-```
-portfolio/
-├── index.html          # Main entry point — DAG canvas & modal
-├── styles.css          # Dark-mode design system & animations
-├── visual_styles.css   # Additional visual layer & typography
-└── script.js           # Full DAG orchestration engine
-```
-
----
-
-## 🎓 Education
-
-| Degree | Institution | GPA |
-|---|---|---|
-| MS, Data Analytics Engineering | George Mason University, USA | 3.70 / 4.0 |
-| B.Tech, Electrical & Electronics Engineering | SASTRA University, India | 7.0 / 10 |
-
----
-
-## 🚀 Getting Started
-
-No build tools needed. Just open the file:
-
-```bash
-# Clone or download the portfolio
-git clone <your-repo-url>
-
-# Open in browser
-open portfolio/index.html
-# or on Windows:
-start portfolio/index.html
-```
-
-> 💡 **Tip:** For the best experience, open in Chrome or Firefox. Enter your name in the modal and click **Connect** to launch the pipeline!
-
----
-
-## 📬 Contact
-
-<div align="center">
-
-**Sushma Vunnam** · Data Engineer · ML Infrastructure Enthusiast
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077b5?style=flat-square&logo=linkedin)](https://linkedin.com/in/sushma-vunnam)
-[![Email](https://img.shields.io/badge/Email-Reach_Out-ea4335?style=flat-square&logo=gmail)](mailto:sushma@example.com)
-
-*Open to Senior Data Engineer & ML Platform roles — especially at scale.*
-
-</div>
-
----
-
-<div align="center">
-  <sub>Built with 💜 by Sushma Vunnam · Designed to run like the pipelines it represents.</sub>
-</div>
+*Built by Sushma Vunnam — designed to run like the pipelines it represents.*
