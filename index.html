@@ -1,132 +1,436 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushma Vunnam | Data Engineer Portfolio</title>
-    <meta name="description" content="Sushma Vunnam - Data Engineer. Explore my professional portfolio visualized as an interactive data pipeline DAG.">
+    <title>Sushma Vunnam | Machine Learning Data Engineer</title>
+    <meta name="description" content="Sushma Vunnam — Machine Learning Data Engineer specializing in large-scale Spark pipelines, real-time streaming, and ML infrastructure on AWS & Azure.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Welcome Gate Modal -->
-    <div id="welcome-modal" class="modal-overlay">
-        <div class="modal-card" id="modal-card">
-            <h2 class="modal-title">Authorized Access Required</h2>
-            <p class="modal-desc">Please identify yourself to establish a secure data pipeline connection.</p>
-            <div class="modal-input-group">
-                <input type="text" id="visitor-name-input" placeholder="Enter your name (e.g. Recruiter, Google)" autocomplete="off" />
-                <button id="connect-btn" class="btn btn-primary">Connect</button>
-            </div>
-            <div id="modal-greeting-status" class="modal-status hidden">
-                <div class="spinner"></div>
-                <span id="greeting-text">Initializing...</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- Wrapper to blur the background content -->
-    <div id="app-wrapper" class="blurred">
-        
-        <!-- Background Canvas for Grid -->
-        <div class="background-grid"></div>
-
-    <!-- Top Navigation / Toolbar -->
-    <header class="toolbar">
-        <div class="logo">
-            <span class="logo-icon">▲</span> SUSHMA VUNNAM
+    <!-- ═══════════════════════════════════════
+         STICKY NAVBAR
+    ═══════════════════════════════════════ -->
+    <header class="navbar" id="navbar">
+        <div class="nav-logo">
+            <span class="logo-icon">⚜️</span>
+            <span style="font-family: 'Cormorant Garamond', serif; letter-spacing: 2px;">SUSHMA VUNNAM</span>
         </div>
-        <div class="controls">
-            <button id="trigger-dag-btn" class="btn btn-primary">
-                <span class="icon">▶</span> Run Pipeline
-            </button>
-            <button id="clear-dag-btn" class="btn btn-secondary">
-                <span class="icon">↺</span> Clear State
-            </button>
+
+        <!-- Structure-only nav links -->
+        <nav class="nav-links" id="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#education" class="nav-link">Education</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="nav-controls">
+            <!-- DAG controls (graph view only) -->
+            <div class="dag-controls" id="dag-controls">
+                <button id="trigger-dag-btn" class="btn btn-primary btn-sm">
+                    <span>▶</span> Run Pipeline
+                </button>
+                <button id="clear-dag-btn" class="btn btn-secondary btn-sm">
+                    <span>↺</span> Clear
+                </button>
+            </div>
+
+            <!-- View Toggle -->
+            <div class="view-toggle" id="view-toggle-btn" title="Switch view">
+                <button class="toggle-pill" id="graph-pill" data-view="graph">
+                    ⬡ Graph
+                </button>
+                <button class="toggle-pill active" id="structure-pill" data-view="structure">
+                    ☰ Structure
+                </button>
+            </div>
+
+            <!-- Dark / Light toggle -->
+            <button class="theme-btn" id="theme-btn" title="Toggle dark/light mode">🌙</button>
         </div>
     </header>
 
-    <!-- Main Workspace -->
-    <main class="workspace">
-        
-        <!-- SVG container to draw the connecting edges between nodes -->
-        <svg id="edges-container" width="100%" height="100%"></svg>
 
-        <!-- DAG Nodes container -->
-        <div class="nodes-container">
-            <!-- Node Level 1 -->
-            <div class="dag-layer" id="layer-1">
-                <div class="dag-node" id="node-bio" data-status="pending" data-title="System Initialize: Bio">
-                    <div class="node-status-color"></div>
-                    <div class="node-content">
-                        <span class="node-icon">👤</span>
-                        <span class="node-label">1. Profile & Education</span>
+    <!-- ═══════════════════════════════════════
+         GRAPH VIEW  (DAG Pipeline)
+    ═══════════════════════════════════════ -->
+    <div id="graph-view" class="view hidden">
+        <div class="background-grid"></div>
+
+        <main class="workspace">
+            <svg id="edges-container" width="100%" height="100%"></svg>
+
+            <div class="nodes-container">
+                <div class="dag-layer" id="layer-1">
+                    <div class="dag-node" id="node-ingest" data-status="pending" data-title="Data Ingestion Layer">
+                        <div class="node-status-color"></div>
+                        <div class="node-content">
+                            <span class="node-icon">📥</span>
+                            <span class="node-label">Data Ingestion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dag-layer" id="layer-2">
+                    <div class="dag-node" id="node-process" data-status="pending" data-title="Processing: ETL & Transformations">
+                        <div class="node-status-color"></div>
+                        <div class="node-content">
+                            <span class="node-icon">⚡</span>
+                            <span class="node-label">Processing & ETL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dag-layer" id="layer-3">
+                    <div class="dag-node" id="node-storage" data-status="pending" data-title="Data Storage: Data Warehouse">
+                        <div class="node-status-color"></div>
+                        <div class="node-content">
+                            <span class="node-icon">💾</span>
+                            <span class="node-label">Data Storage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dag-layer" id="layer-4">
+                    <div class="dag-node" id="node-analytics" data-status="pending" data-title="Analytics & ML Models">
+                        <div class="node-status-color"></div>
+                        <div class="node-content">
+                            <span class="node-icon">🧠</span>
+                            <span class="node-label">Analytics & ML</span>
+                        </div>
+                    </div>
+                    <div class="dag-node" id="node-insights" data-status="pending" data-title="Business Insights & Reporting">
+                        <div class="node-status-color"></div>
+                        <div class="node-content">
+                            <span class="node-icon">📊</span>
+                            <span class="node-label">Insights & Viz</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Side Panel -->
+        <aside class="details-panel" id="details-panel">
+            <div class="panel-header">
+                <h2 id="panel-title">Task Details</h2>
+                <button id="close-panel-btn" class="icon-btn">✕</button>
+            </div>
+            <div class="panel-body">
+                <div class="panel-metadata">
+                    <p><strong>Operator:</strong> <span class="monospaced">BashOperator</span></p>
+                    <p><strong>State:</strong> <span id="panel-state-badge" class="badge badge-pending">Pending</span></p>
+                    <p><strong>Duration:</strong> <span id="panel-duration">0.00s</span></p>
+                </div>
+                <div class="panel-log-section">
+                    <h3>View Logs</h3>
+                    <div id="panel-logs" class="log-window">
+                        <p class="log-line">Waiting for task execution to complete...</p>
+                    </div>
+                </div>
+                <div class="panel-rendered-content" id="panel-content"></div>
+            </div>
+        </aside>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════
+         STRUCTURE VIEW  (Scrollable Portfolio)
+    ═══════════════════════════════════════ -->
+    <div id="structure-view" class="view">
+
+        <!-- ── HERO ─────────────────────────────── -->
+        <section id="about" class="section hero-section">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="hero-greeting">Hi, I'm</p>
+                    <h1 class="hero-name">Sushma Vunnam</h1>
+                    <p class="hero-title">Machine Learning Data Engineer</p>
+                    <p class="hero-bio">
+                        Data Engineer with 3+ years architecting enterprise-scale pipelines at Walmart Global Tech, moving <strong>100M+ records daily</strong> with sub-second reliability. Expert in Apache Spark, Kafka, and cloud ML infrastructure across <strong>AWS &amp; Azure</strong> — bridging raw data with intelligent systems through real-time streaming, distributed ETL, and generative AI integration.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="./resume.pdf" target="_blank" class="btn btn-primary">📄 Resume</a>
+                        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                        <a href="https://www.linkedin.com/in/sushmav19" target="_blank" class="btn btn-ghost">in LinkedIn</a>
+                    </div>
+                </div>
+                <div class="hero-photo-wrap">
+                    <div class="hero-photo-ring">
+                        <img src="./profile.jpg" alt="Sushma Vunnam" class="hero-photo">
                     </div>
                 </div>
             </div>
 
-            <!-- Node Level 2 -->
-            <div class="dag-layer" id="layer-2">
-                <div class="dag-node" id="node-skills" data-status="pending" data-title="Processing: Skills">
-                    <div class="node-status-color"></div>
-                    <div class="node-content">
-                        <span class="node-icon">⚙️</span>
-                        <span class="node-label">2. Technical Skills Matrix</span>
+            <!-- Impact metrics -->
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <span class="metric-num">100M+</span>
+                    <span class="metric-desc">Records / Day</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-num">3+</span>
+                    <span class="metric-desc">Years Experience</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-num">80%</span>
+                    <span class="metric-desc">Spark Perf. Boost</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-num">600M+</span>
+                    <span class="metric-desc">Records / Batch</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── SKILLS ─────────────────────────────── -->
+        <section id="skills" class="section">
+            <div class="section-inner">
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-subtitle">Full-stack data engineering competencies</p>
+
+                <div class="skills-tabs">
+                    <button class="skill-tab active" data-tab="bigdata">Big Data</button>
+                    <button class="skill-tab" data-tab="streaming">Streaming</button>
+                    <button class="skill-tab" data-tab="cloud">Cloud &amp; DevOps</button>
+                    <button class="skill-tab" data-tab="databases">Databases</button>
+                    <button class="skill-tab" data-tab="ai">Languages &amp; AI</button>
+                </div>
+
+                <div class="skills-panel active" data-panel="bigdata">
+                    <div class="skill-chips">
+                        <span class="skill-chip featured">Apache Spark</span>
+                        <span class="skill-chip featured">PySpark</span>
+                        <span class="skill-chip">Scala</span>
+                        <span class="skill-chip">Hadoop / HDFS</span>
+                        <span class="skill-chip">Apache Hive</span>
+                        <span class="skill-chip">Adaptive Query Execution</span>
+                        <span class="skill-chip">Delta Lake</span>
+                        <span class="skill-chip">Parquet / ORC</span>
+                    </div>
+                </div>
+                <div class="skills-panel" data-panel="streaming">
+                    <div class="skill-chips">
+                        <span class="skill-chip featured">Apache Kafka</span>
+                        <span class="skill-chip featured">Spark Streaming</span>
+                        <span class="skill-chip">Micro-batch Processing</span>
+                        <span class="skill-chip">Real-time Pipelines</span>
+                        <span class="skill-chip">Event-driven Architecture</span>
+                    </div>
+                </div>
+                <div class="skills-panel" data-panel="cloud">
+                    <div class="skill-chips">
+                        <span class="skill-chip featured">AWS (Bedrock, EC2)</span>
+                        <span class="skill-chip featured">Azure</span>
+                        <span class="skill-chip">Apache Airflow</span>
+                        <span class="skill-chip">Prometheus</span>
+                        <span class="skill-chip">Grafana</span>
+                        <span class="skill-chip">Docker</span>
+                        <span class="skill-chip">CI/CD</span>
+                    </div>
+                </div>
+                <div class="skills-panel" data-panel="databases">
+                    <div class="skill-chips">
+                        <span class="skill-chip featured">Apache Cassandra</span>
+                        <span class="skill-chip">PostgreSQL</span>
+                        <span class="skill-chip">MongoDB</span>
+                        <span class="skill-chip">Milvus (Vector DB)</span>
+                        <span class="skill-chip">Delta Lake</span>
+                    </div>
+                </div>
+                <div class="skills-panel" data-panel="ai">
+                    <div class="skill-chips">
+                        <span class="skill-chip featured">Java 8/17</span>
+                        <span class="skill-chip featured">Python (FastAPI)</span>
+                        <span class="skill-chip">SQL</span>
+                        <span class="skill-chip">Prompt Engineering</span>
+                        <span class="skill-chip">Claude 3 / Sonnet</span>
+                        <span class="skill-chip">AWS Bedrock</span>
+                        <span class="skill-chip">RAG Pipelines</span>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Node Level 3 -->
-            <div class="dag-layer" id="layer-3">
-                <div class="dag-node" id="node-experience" data-status="pending" data-title="Loading: Experience">
-                    <div class="node-status-color"></div>
-                    <div class="node-content">
-                        <span class="node-icon">💼</span>
-                        <span class="node-label">3. Work Experience</span>
+        <!-- ── EXPERIENCE ─────────────────────────── -->
+        <section id="experience" class="section">
+            <div class="section-inner">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">Building data infrastructure at scale</p>
+
+                <div class="timeline">
+
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <h3 class="timeline-role">Data Engineer</h3>
+                                    <p class="timeline-company">🏢 Walmart Global Tech</p>
+                                </div>
+                                <span class="timeline-date">Dec 2024 – Present</span>
+                            </div>
+                            <ul class="timeline-points">
+                                <li>Designed real-time marketplace pipeline handling <strong>50M+ events/day</strong> using Apache Kafka + Java consumers</li>
+                                <li>Achieved <strong>80% Spark performance boost</strong> via Adaptive Query Execution (AQE) tuning and partition strategy</li>
+                                <li>Processed <strong>600M+ records per batch run</strong> on Walmart's Harmony Platform with Delta Lake storage</li>
+                                <li>Built end-to-end observability with Prometheus + Grafana dashboards for real-time SLA monitoring</li>
+                            </ul>
+                            <div class="timeline-chips">
+                                <span class="skill-chip sm">Apache Kafka</span>
+                                <span class="skill-chip sm">Apache Spark</span>
+                                <span class="skill-chip sm">Delta Lake</span>
+                                <span class="skill-chip sm">Java</span>
+                                <span class="skill-chip sm">Prometheus</span>
+                                <span class="skill-chip sm">Grafana</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <h3 class="timeline-role">Data Engineer</h3>
+                                    <p class="timeline-company">🌐 Accenture</p>
+                                </div>
+                                <span class="timeline-date">Feb 2021 – Jun 2022</span>
+                            </div>
+                            <ul class="timeline-points">
+                                <li>Automated data ingestion from heterogeneous sources (SAP, Oracle, flat files) — <strong>10M+ records/day</strong></li>
+                                <li>Engineered PySpark-based cleansing and schema validation pipelines reducing data errors by <strong>60%</strong></li>
+                                <li>Delivered analytics-ready data warehouse feeding BI dashboards used by 200+ business stakeholders</li>
+                            </ul>
+                            <div class="timeline-chips">
+                                <span class="skill-chip sm">PySpark</span>
+                                <span class="skill-chip sm">Python</span>
+                                <span class="skill-chip sm">SQL</span>
+                                <span class="skill-chip sm">SAP</span>
+                                <span class="skill-chip sm">Airflow</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ── PROJECTS ───────────────────────────── -->
+        <section id="projects" class="section">
+            <div class="section-inner">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-subtitle">Engineering at scale</p>
+
+                <div class="projects-grid">
+
+                    <div class="project-card reveal">
+                        <div class="project-header">
+                            <span class="project-icon">⚡</span>
+                            <span class="project-tag">Big Data</span>
+                        </div>
+                        <h3 class="project-title">Enterprise PySpark Pipeline</h3>
+                        <p class="project-desc">Scalable ETL pipeline processing <strong>50M+ records</strong> end-to-end. Achieved 45% throughput improvement through strict partition strategies and AQE configuration.</p>
+                        <div class="project-chips">
+                            <span class="skill-chip sm">PySpark</span>
+                            <span class="skill-chip sm">AQE</span>
+                            <span class="skill-chip sm">Delta Lake</span>
+                            <span class="skill-chip sm">Python</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card reveal">
+                        <div class="project-header">
+                            <span class="project-icon">🤖</span>
+                            <span class="project-tag">Generative AI</span>
+                        </div>
+                        <h3 class="project-title">Generative AI Chatbot — AWS Bedrock</h3>
+                        <p class="project-desc">Multi-model benchmarking framework on AWS Bedrock evaluating Claude 3 Sonnet vs. Titan with structured zero-shot / few-shot prompt engineering. Claude 3 consistently outperformed.</p>
+                        <div class="project-chips">
+                            <span class="skill-chip sm">AWS Bedrock</span>
+                            <span class="skill-chip sm">Claude 3</span>
+                            <span class="skill-chip sm">Prompt Eng.</span>
+                            <span class="skill-chip sm">Python</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card reveal">
+                        <div class="project-header">
+                            <span class="project-icon">🧠</span>
+                            <span class="project-tag">ML Infrastructure</span>
+                        </div>
+                        <h3 class="project-title">Kafka → Milvus RAG Pipeline</h3>
+                        <p class="project-desc">Streaming Kafka topics into Milvus vector database for low-latency Retrieval-Augmented Generation (RAG) within enterprise network boundaries. Targeting sub-100ms retrieval.</p>
+                        <div class="project-chips">
+                            <span class="skill-chip sm">Kafka</span>
+                            <span class="skill-chip sm">Milvus</span>
+                            <span class="skill-chip sm">RAG</span>
+                            <span class="skill-chip sm">Vector DB</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ── EDUCATION ──────────────────────────── -->
+        <section id="education" class="section">
+            <div class="section-inner">
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">Academic foundation</p>
+
+                <div class="edu-grid">
+                    <div class="edu-card reveal">
+                        <div class="edu-icon">🎓</div>
+                        <div class="edu-body">
+                            <h3 class="edu-degree">MS, Data Analytics Engineering</h3>
+                            <p class="edu-school">George Mason University, USA</p>
+                            <p class="edu-meta">GPA: 3.70 / 4.0</p>
+                        </div>
+                    </div>
+                    <div class="edu-card reveal">
+                        <div class="edu-icon">🏛️</div>
+                        <div class="edu-body">
+                            <h3 class="edu-degree">B.Tech, Electrical &amp; Electronics Engineering</h3>
+                            <p class="edu-school">SASTRA University, India</p>
+                            <p class="edu-meta">GPA: 7.0 / 10</p>
+                        </div>
                     </div>
                 </div>
-                <div class="dag-node" id="node-projects" data-status="pending" data-title="Deploying: Projects">
-                    <div class="node-status-color"></div>
-                    <div class="node-content">
-                        <span class="node-icon">🚀</span>
-                        <span class="node-label">4. Portfolio Projects</span>
-                    </div>
+            </div>
+        </section>
+
+        <!-- ── CONTACT ────────────────────────────── -->
+        <section id="contact" class="section">
+            <div class="section-inner contact-inner">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Open to Senior Data Engineer &amp; ML Platform roles</p>
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/sushmav19" target="_blank" class="contact-card">
+                        <span class="contact-icon">in</span>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="./resume.pdf" target="_blank" class="contact-card">
+                        <span class="contact-icon">📄</span>
+                        <span>Resume</span>
+                    </a>
                 </div>
             </div>
-        </div>
+        </section>
 
-    </main>
+        <footer class="site-footer">
+            <p>Designed &amp; built by Sushma Vunnam · Runs like the pipelines it represents.</p>
+        </footer>
 
-    <!-- Side Panel for Content Details -->
-    <aside class="details-panel" id="details-panel">
-        <div class="panel-header">
-            <h2 id="panel-title">Task Details</h2>
-            <button id="close-panel-btn" class="icon-btn">✕</button>
-        </div>
-        <div class="panel-body">
-            <div class="panel-metadata">
-                <p><strong>Operator:</strong> <span class="monospaced">BashOperator</span></p>
-                <p><strong>State:</strong> <span id="panel-state-badge" class="badge badge-pending">Pending</span></p>
-                <p><strong>Duration:</strong> <span id="panel-duration">0.00s</span></p>
-            </div>
-            
-            <div class="panel-log-section">
-                <h3>View Logs</h3>
-                <div id="panel-logs" class="log-window">
-                    <p class="log-line">Waiting for task execution to complete...</p>
-                </div>
-            </div>
+    </div> <!-- end #structure-view -->
 
-            <div class="panel-rendered-content" id="panel-content">
-                <!-- Dynamic content injected here based on node clicked -->
-            </div>
-        </div>
-    </aside>
-
-    </div> <!-- End app-wrapper -->
-    
     <script src="script.js"></script>
 </body>
 </html>
