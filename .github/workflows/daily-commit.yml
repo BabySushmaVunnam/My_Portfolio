@@ -34,8 +34,8 @@ jobs:
 
       - name: Commit and push
         run: |
-          git config user.name "Sushma Vunnam"
-          git config user.email "actions@github.com"
+          git config user.name "BabySushmaVunnam"
+          git config user.email "${{ secrets.USER_EMAIL }}"
           git add ACTIVITY.md
           git commit -m "chore: daily activity update $(date +%Y-%m-%d)"
           git push
