@@ -1,0 +1,41 @@
+name: Daily Portfolio Activity
+
+on:
+  schedule:
+    - cron: '0 12 * * *'  # Runs daily at 12:00 UTC (7 AM EST)
+  workflow_dispatch:       # Also allows manual trigger from GitHub
+
+jobs:
+  daily-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update activity log
+        run: |
+          DATE=$(date +"%Y-%m-%d")
+          DAY=$(date +"%A")
+          WEEK=$(date +"%V")
+
+          # Create file if it doesn't exist
+          if [ ! -f ACTIVITY.md ]; then
+            echo "# Portfolio Activity Log" > ACTIVITY.md
+            echo "" >> ACTIVITY.md
+            echo "Daily log for Sushma Vunnam — Data Engineer" >> ACTIVITY.md
+            echo "" >> ACTIVITY.md
+          fi
+
+          # Append today's entry
+          echo "- **$DATE** ($DAY, Week $WEEK) — Portfolio active | Data Engineering & AI" >> ACTIVITY.md
+
+      - name: Commit and push
+        run: |
+          git config user.name "Sushma Vunnam"
+          git config user.email "actions@github.com"
+          git add ACTIVITY.md
+          git commit -m "chore: daily activity update $(date +%Y-%m-%d)"
+          git push
