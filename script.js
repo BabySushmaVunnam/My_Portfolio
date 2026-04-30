@@ -47,238 +47,168 @@ themeBtn.addEventListener('click', () => {
 // 2. DAG — DATA (REAL DATA PIPELINE)
 // ═══════════════════════════════════════════════
 const dagEdgesData = [
-    { from: 'node-ingest',   to: 'node-process' },
-    { from: 'node-process',  to: 'node-storage' },
-    { from: 'node-storage',  to: 'node-analytics' },
-    { from: 'node-storage',  to: 'node-insights' }
+    { from: 'node-about',      to: 'node-skills' },
+    { from: 'node-skills',     to: 'node-experience' },
+    { from: 'node-experience', to: 'node-projects' },
+    { from: 'node-experience', to: 'node-education' }
 ];
 
 const nodeDataMap = {
-    'node-ingest': {
-        title: 'kafka_ingest.py',
+    'node-about': {
+        title: 'sushma_vunnam.profile',
         logs: [
-            "[INFO] Initializing data ingestion pipeline...",
-            "[INFO] Connecting to Kafka brokers (50M+ events/day)",
-            "[INFO] Sources: Marketplace | Orders | User Events | Transactions",
-            "[SUCCESS] Kafka consumers initialized. Streaming started."
+            "[INFO] Loading profile: Sushma Vunnam...",
+            "[INFO] Role: Data Engineer | Location: USA",
+            "[INFO] Connecting to Walmart Global Tech cluster...",
+            "[SUCCESS] Profile loaded. 3+ years experience. 100M+ records/day."
         ],
+        section: 'about',
         content: `
-            <h3>Data Ingestion</h3>
-            <p>Real-time and batch data collection from multiple sources processing <strong>50M+ events daily</strong> at Walmart scale.</p>
-            
-            <h4>Sources Connected</h4>
-            <div class="tech-badges">
-                <span class="tech-badge">Kafka Streams</span>
-                <span class="tech-badge">SAP & Oracle</span>
-                <span class="tech-badge">Marketplace APIs</span>
-                <span class="tech-badge">Cloud Storage</span>
+            <h3>Sushma Vunnam</h3>
+            <p>Data Engineer with <strong>3+ years</strong> building enterprise-scale data platforms at Walmart Global Tech and Accenture.</p>
+            <div class="metrics-grid">
+                <div class="metric-box"><span class="metric-value">100M+</span><span class="metric-label">Records / Day</span></div>
+                <div class="metric-box"><span class="metric-value">3+</span><span class="metric-label">Years Experience</span></div>
+                <div class="metric-box"><span class="metric-value">80%</span><span class="metric-label">Spark Perf. Boost</span></div>
+                <div class="metric-box"><span class="metric-value">600M+</span><span class="metric-label">Records / Batch</span></div>
             </div>
-            
-            <h4>Key Metrics</h4>
-            <ul>
-                <li><strong>50M+ events/day</strong> from marketplace</li>
-                <li><strong>600M+ batch records</strong> processed per cycle</li>
-                <li><strong>Sub-second latency</strong> for critical events</li>
-                <li><strong>99.99% uptime</strong> on ingestion pipelines</li>
-            </ul>
+            <p>Specialises in data lakehouse architecture, real-time streaming, distributed ETL, and generative AI integration across <strong>AWS & Azure</strong>.</p>
+            <p style="margin-top:16px"><a href="#about" class="dag-nav-link" data-section="about">→ View Full Profile</a></p>
         `
     },
-    'node-process': {
-        title: 'spark_etl_pipeline.py',
+    'node-skills': {
+        title: 'tech_stack.yml',
         logs: [
-            "[INFO] Parsing 600M+ records for ETL transformation...",
-            "[INFO] Executing Spark job with Adaptive Query Execution (AQE)",
-            "[INFO] Partitioning data by marketplace & timestamp",
-            "[SUCCESS] ETL complete. 80% performance boost achieved via AQE."
+            "[INFO] Scanning installed packages...",
+            "[INFO] Big Data: Spark, PySpark, Kafka, Delta Lake, dbt",
+            "[INFO] Cloud: AWS Bedrock, Azure, Databricks, Airflow",
+            "[SUCCESS] Tech stack loaded. 25+ tools & frameworks."
         ],
+        section: 'skills',
         content: `
-            <h3>Processing & ETL</h3>
-            <p>Enterprise-grade Apache Spark framework for distributed processing, transforming <strong>600M+ records per batch</strong> with <strong>80% performance improvement</strong> using Adaptive Query Execution.</p>
-            
-            <h4>Processing Stack</h4>
+            <h3>Tech Stack</h3>
+            <h4>Big Data & Processing</h4>
             <div class="tech-badges">
-                <span class="tech-badge">Apache Spark 3.5</span>
+                <span class="tech-badge">Apache Spark</span>
                 <span class="tech-badge">PySpark</span>
-                <span class="tech-badge">Scala</span>
-                <span class="tech-badge">AQE Optimization</span>
-                <span class="tech-badge">Catalyst Optimizer</span>
-            </div>
-            
-            <h4>Pipeline Stages</h4>
-            <ul>
-                <li>Data Validation & Cleansing</li>
-                <li>Complex Joins & Aggregations</li>
-                <li>Feature Engineering</li>
-                <li>Quality Metrics & Monitoring</li>
-            </ul>
-        `
-    },
-    'node-storage': {
-        title: 'delta_lake_warehouse.sql',
-        logs: [
-            "[INFO] Writing transformed data to Delta Lake...",
-            "[INFO] Creating optimized partitions: date/marketplace/category",
-            "[INFO] Enabling ACID transactions & time-travel",
-            "[SUCCESS] Data warehouse layer ready for analytics (600M+ records)."
-        ],
-        content: `
-            <h3>Data Storage & Warehouse</h3>
-            <p>Modern data lake architecture using <strong>Delta Lake</strong> for ACID transactions, versioning, and optimized analytics queries on petabyte-scale data.</p>
-            
-            <h4>Storage Technologies</h4>
-            <div class="tech-badges">
+                <span class="tech-badge">dbt</span>
                 <span class="tech-badge">Delta Lake</span>
-                <span class="tech-badge">Parquet Format</span>
-                <span class="tech-badge">Hive Partitioning</span>
-                <span class="tech-badge">AWS S3</span>
-                <span class="tech-badge">Azure Data Lake</span>
+                <span class="tech-badge">Apache Kafka</span>
+                <span class="tech-badge">Apache Iceberg</span>
             </div>
-            
-            <h4>Data Organization</h4>
-            <ul>
-                <li>Z-Order clustering for query optimization</li>
-                <li>Automated vacuuming & compaction</li>
-                <li>Unified Batch & Streaming</li>
-                <li>ACID guarantees on all writes</li>
-            </ul>
-        `
-    },
-    'node-analytics': {
-        title: 'ml_model_training.py',
-        logs: [
-            "[INFO] Loading transformed datasets from warehouse...",
-            "[INFO] Training predictive ML models (Demand Forecasting, Recommendation Engine)",
-            "[INFO] Feature importance analysis complete",
-            "[SUCCESS] Models deployed to production. Real-time inference ready."
-        ],
-        content: `
-            <h3>Analytics & ML Models</h3>
-            <p>Building production-grade machine learning models for demand forecasting, personalization, and anomaly detection on enterprise scale data.</p>
-            
-            <h4>ML Infrastructure</h4>
+            <h4>Cloud & Orchestration</h4>
             <div class="tech-badges">
-                <span class="tech-badge">TensorFlow</span>
-                <span class="tech-badge">PyTorch</span>
-                <span class="tech-badge">MLflow</span>
-                <span class="tech-badge">AWS SageMaker</span>
-                <span class="tech-badge">LLMs & RAG</span>
+                <span class="tech-badge">AWS (Bedrock, S3, Glue)</span>
+                <span class="tech-badge">Azure (ADF, ADLS)</span>
+                <span class="tech-badge">Databricks</span>
+                <span class="tech-badge">Apache Airflow</span>
+                <span class="tech-badge">Docker</span>
+                <span class="tech-badge">Terraform</span>
             </div>
-            
-            <h4>Model Deployment</h4>
-            <ul>
-                <li>Real-time inference APIs using FastAPI</li>
-                <li>A/B testing & experimentation framework</li>
-                <li>Model monitoring with Prometheus/Grafana</li>
-                <li>GenAI chatbots (AWS Bedrock, Claude 3)</li>
-            </ul>
-        `
-    },
-    'node-insights': {
-        title: 'dashboards_reports.py',
-        logs: [
-            "[INFO] Generating business intelligence dashboards...",
-            "[INFO] Computing KPIs: Revenue, Growth, Churn, Engagement",
-            "[INFO] Creating interactive visualizations for stakeholders",
-            "[SUCCESS] Real-time dashboards & reports deployed to exec team."
-        ],
-        content: `
-            <h3>Business Insights & Reporting</h3>
-            <p>Executive-level dashboards and reports delivering actionable business intelligence to drive strategic decisions and revenue optimization.</p>
-            
-            <h4>Reporting Tools</h4>
+            <h4>AI & Languages</h4>
             <div class="tech-badges">
-                <span class="tech-badge">Tableau</span>
-                <span class="tech-badge">Grafana</span>
-                <span class="tech-badge">Apache Superset</span>
-                <span class="tech-badge">Custom APIs</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Java 8/17</span>
+                <span class="tech-badge">SQL</span>
+                <span class="tech-badge">Claude 3 / AWS Bedrock</span>
+                <span class="tech-badge">RAG Pipelines</span>
+                <span class="tech-badge">LangChain</span>
             </div>
-            
-            <h4>Key Outputs</h4>
-            <ul>
-                <li>Real-time KPI dashboards</li>
-                <li>Predictive analytics for business planning</li>
-                <li>Automated anomaly detection alerts</li>
-                <li>Customer insights & personalization engines</li>
-            </ul>
+            <p style="margin-top:16px"><a href="#skills" class="dag-nav-link" data-section="skills">→ View All Skills</a></p>
         `
     },
-
     'node-experience': {
-        title: 'load_experience.yml',
+        title: 'career_timeline.json',
         logs: [
-            "[INFO] Initiating loading sequence to target 'resume_dim'...",
-            "[WARN] High latency detected on legacy ETL... Tuning AQE.",
-            "[INFO] Refactoring to streaming micro-batch. Latency dropping...",
-            "[SUCCESS] Load complete. 100M+ records processed daily."
+            "[INFO] Loading career timeline...",
+            "[INFO] Walmart Global Tech — Dec 2024 to Present",
+            "[INFO] UCode Technologies — Jun 2024 to Nov 2024",
+            "[INFO] Accenture — Feb 2021 to Jun 2022",
+            "[SUCCESS] 3 roles loaded. 100M+ records processed daily."
         ],
+        section: 'experience',
         content: `
-            <h3>Work Experience</h3>
+            <h3>Experience</h3>
 
             <h4>Walmart Global Tech <span class="monospaced" style="font-size:0.8em;font-weight:normal">(Dec 2024 – Present)</span></h4>
-            <p>Designed and built a real-time marketplace pipeline handling 50M+ events/day and 600M+ batch records with 80% Spark performance boost via AQE.</p>
+            <p>Real-time marketplace pipeline — 50M+ events/day, 600M+ records/batch, 80% Spark boost via AQE.</p>
             <div class="arch-flow-container">
                 <div class="arch-flow">
-                    <div class="arch-node">📦 Marketplace Events<span class="arch-subtext">50M+ / day</span></div>
+                    <div class="arch-node">📦 Kafka<span class="arch-subtext">50M+ events/day</span></div>
                     <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#d97706">♨️ Apache Kafka<span class="arch-subtext">Java Consumers</span></div>
+                    <div class="arch-node" style="border-color:#eab308">⚡ Spark AQE<span class="arch-subtext">600M+ records</span></div>
                     <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#eab308">⚡ Apache Spark<span class="arch-subtext">AQE Optimized</span></div>
+                    <div class="arch-node" style="border-color:#3b82f6">🗄️ Delta Lake<span class="arch-subtext">Bronze→Gold</span></div>
                     <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#3b82f6">🗄️ Delta Lake<span class="arch-subtext">Harmony Platform</span></div>
-                    <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#10b981">📊 Observability<span class="arch-subtext">Prometheus / Grafana</span></div>
+                    <div class="arch-node" style="border-color:#10b981">📊 Grafana<span class="arch-subtext">SLA Monitoring</span></div>
                 </div>
             </div>
 
+            <h4>UCode Technologies LLC <span class="monospaced" style="font-size:0.8em;font-weight:normal">(Jun – Nov 2024)</span></h4>
+            <p>Backend data services with Python/FastAPI, MySQL ETL pipelines, and CI/CD automation.</p>
+
             <h4>Accenture <span class="monospaced" style="font-size:0.8em;font-weight:normal">(Feb 2021 – Jun 2022)</span></h4>
-            <p>Automated data ingestion from SAP, Oracle &amp; flat files — 10M+ records/day into an analytics-ready warehouse, with PySpark cleansing.</p>
-            <div class="arch-flow-container" style="padding:16px">
-                <div class="arch-flow">
-                    <div class="arch-node">🗃️ Legacy Systems<span class="arch-subtext">SAP / CSV / Oracle</span></div>
-                    <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#8b5cf6">🐍 Python / SQL ETL<span class="arch-subtext">Custom Ingestion DAGs</span></div>
-                    <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#eab308">⚡ PySpark Cleansing<span class="arch-subtext">Schema validation</span></div>
-                    <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#3b82f6">🏢 Data Warehouse<span class="arch-subtext">Analytics Ready</span></div>
-                </div>
-            </div>
+            <p>10M+ records/day ingestion from SAP, Oracle, flat files — PySpark cleansing, dimensional modeling.</p>
+            <p style="margin-top:16px"><a href="#experience" class="dag-nav-link" data-section="experience">→ View Full Experience</a></p>
         `
     },
     'node-projects': {
-        title: 'deploy_projects.sh',
+        title: 'portfolio_projects.sh',
         logs: [
-            "[INFO] Triggering downstream deploys for portfolio assets...",
-            "[INFO] Compiling Enterprise PySpark Pipeline...",
-            "[INFO] Benchmarking Claude 3 Sonnet vs Titan on AWS Bedrock...",
-            "[SUCCESS] All pipeline artifacts deployed successfully."
+            "[INFO] Loading project portfolio...",
+            "[INFO] Project 1: Enterprise PySpark Pipeline",
+            "[INFO] Project 2: Generative AI Chatbot — AWS Bedrock",
+            "[INFO] Project 3: Kafka → Milvus RAG Pipeline",
+            "[INFO] Project 4: Cloud Data Lakehouse Platform",
+            "[SUCCESS] 4 projects deployed."
         ],
+        section: 'projects',
         content: `
-            <h3>Featured Projects</h3>
+            <h3>Projects</h3>
 
             <h4>1. Enterprise PySpark Pipeline</h4>
-            <p>Scalable ETL pipeline processing 50M+ records with 45% throughput improvement via partition strategies and AQE.</p>
+            <p>ETL processing 50M+ records with 45% throughput improvement via AQE and partition strategy.</p>
             <div class="code-snippet-container">
-<pre><code><span class="code-comment">// Spark AQE Optimization</span>
+<pre><code><span class="code-comment"># AQE + partition tuning</span>
 <span class="code-keyword">spark</span>.conf.<span class="code-method">set</span>(<span class="code-string">"spark.sql.adaptive.enabled"</span>, <span class="code-string">"true"</span>)
-<span class="code-keyword">spark</span>.conf.<span class="code-method">set</span>(<span class="code-string">"spark.sql.shuffle.partitions"</span>, <span class="code-string">"200"</span>)
 <span class="code-keyword">spark</span>.conf.<span class="code-method">set</span>(<span class="code-string">"spark.sql.adaptive.coalescePartitions.enabled"</span>, <span class="code-string">"true"</span>)</code></pre>
             </div>
 
-            <h4>2. Generative AI Chatbot — AWS Bedrock</h4>
-            <p>Multi-model benchmarking framework with structured prompt engineering (zero/few-shot). Claude 3 Sonnet consistently outperformed Titan.</p>
-            <div class="arch-flow-container" style="padding:16px;margin:12px 0">
-                <div class="arch-flow">
-                    <div class="arch-node">👤 User Query<span class="arch-subtext">Zero/Few Shot</span></div>
-                    <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#8b5cf6">🧠 AWS Bedrock<span class="arch-subtext">Claude / Titan</span></div>
-                    <div class="arch-arrow">→</div>
-                    <div class="arch-node" style="border-color:#10b981">📈 Evaluation<span class="arch-subtext">Accuracy Metrics</span></div>
-                </div>
-            </div>
+            <h4>2. Cloud Data Lakehouse</h4>
+            <p>Multi-layer Bronze→Silver→Gold on AWS S3 + Delta Lake with dbt quality checks. 70% latency reduction.</p>
 
-            <h4>3. Kafka → Milvus RAG Pipeline</h4>
-            <p>Streaming Kafka topics into Milvus vector database for low-latency Retrieval-Augmented Generation (RAG) within enterprise boundaries.</p>
+            <h4>3. GenAI Chatbot — AWS Bedrock</h4>
+            <p>Claude 3 Sonnet vs Titan benchmarking with zero/few-shot prompt engineering.</p>
+
+            <h4>4. Kafka → Milvus RAG Pipeline</h4>
+            <p>Real-time streaming into vector DB for sub-100ms enterprise RAG retrieval.</p>
+            <p style="margin-top:16px"><a href="#projects" class="dag-nav-link" data-section="projects">→ View All Projects</a></p>
+        `
+    },
+    'node-education': {
+        title: 'education_certs.md',
+        logs: [
+            "[INFO] Loading academic records...",
+            "[INFO] MS Data Analytics Engineering — George Mason University (GPA: 3.70)",
+            "[INFO] B.Tech EEE — SASTRA University",
+            "[INFO] Certifications: LinkedIn Learning, Anthropic, Accenture",
+            "[SUCCESS] Education & certifications loaded."
+        ],
+        section: 'education',
+        content: `
+            <h3>Education</h3>
+            <ul>
+                <li><strong>MS, Data Analytics Engineering</strong><br>George Mason University, USA — 2022–2024 | GPA: 3.70/4.0</li>
+                <li style="margin-top:12px"><strong>B.Tech, Electrical & Electronics Engineering</strong><br>SASTRA University, India — 2017–2021</li>
+            </ul>
+
+            <h3 style="margin-top:20px">Certifications</h3>
+            <div class="tech-badges">
+                <span class="tech-badge">Leveraging AI & DE for Sustainability — LinkedIn</span>
+                <span class="tech-badge">Claude Code 101 — Anthropic</span>
+                <span class="tech-badge">Stream Training — Accenture India</span>
+            </div>
+            <p style="margin-top:16px"><a href="#education" class="dag-nav-link" data-section="education">→ View Education</a></p>
         `
     }
 };
@@ -293,6 +223,15 @@ let edgeElements = [];
 function drawEdges() {
     svgContainer.innerHTML = '';
     edgeElements = [];
+
+    // Arrowhead marker
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    defs.innerHTML = `
+        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" class="dag-edge-arrow" />
+        </marker>
+    `;
+    svgContainer.appendChild(defs);
     const svgRect = svgContainer.getBoundingClientRect();
 
     dagEdgesData.forEach(link => {
@@ -303,15 +242,17 @@ function drawEdges() {
         const fromRect = fromNode.getBoundingClientRect();
         const toRect   = toNode.getBoundingClientRect();
 
-        const startX = fromRect.left + fromRect.width / 2 - svgRect.left;
-        const startY = fromRect.bottom - svgRect.top;
-        const endX   = toRect.left + toRect.width / 2 - svgRect.left;
-        const endY   = toRect.top - svgRect.top;
-        const cy     = startY + (endY - startY) / 2;
+        // Horizontal layout: exit right side of from-node, enter left side of to-node
+        const startX = fromRect.right - svgRect.left;
+        const startY = fromRect.top + fromRect.height / 2 - svgRect.top;
+        const endX   = toRect.left - svgRect.left;
+        const endY   = toRect.top + toRect.height / 2 - svgRect.top;
+        const cx     = startX + (endX - startX) / 2;
 
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', `M ${startX},${startY} C ${startX},${cy} ${endX},${cy} ${endX},${endY}`);
+        path.setAttribute('d', `M ${startX},${startY} C ${cx},${startY} ${cx},${endY} ${endX},${endY}`);
         path.setAttribute('class', 'dag-edge');
+        path.setAttribute('marker-end', 'url(#arrowhead)');
         path.dataset.from = link.from;
         path.dataset.to   = link.to;
 
@@ -360,6 +301,20 @@ function openPanel(nodeId) {
 closePanelBtn.addEventListener('click', () => detailsPanel.classList.remove('open'));
 document.querySelectorAll('.dag-node').forEach(n => n.addEventListener('click', () => openPanel(n.id)));
 
+// "→ View Section" links inside panel navigate to structure view
+document.addEventListener('click', e => {
+    const link = e.target.closest('.dag-nav-link');
+    if (!link) return;
+    e.preventDefault();
+    const section = link.dataset.section;
+    detailsPanel.classList.remove('open');
+    switchView('structure');
+    setTimeout(() => {
+        const target = document.getElementById(section);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+});
+
 
 // ═══════════════════════════════════════════════
 // 5. DAG ORCHESTRATION
@@ -368,10 +323,10 @@ const dagsBtn  = document.getElementById('trigger-dag-btn');
 const clearBtn = document.getElementById('clear-dag-btn');
 
 const executionOrder = [
-    ['node-ingest'],
-    ['node-process'],
-    ['node-storage'],
-    ['node-analytics', 'node-insights']
+    ['node-about'],
+    ['node-skills'],
+    ['node-experience'],
+    ['node-projects', 'node-education']
 ];
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));

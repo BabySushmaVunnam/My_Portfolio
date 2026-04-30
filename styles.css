@@ -434,29 +434,35 @@ a, button, .dag-node {
     to   { stroke-dashoffset: 0; }
 }
 
+/* Arrow marker on edges */
+.dag-edge-arrow {
+    fill: rgba(212, 175, 55, 0.5);
+}
+
 .nodes-container {
     position: absolute;
-    top: 0; left: 0; bottom: 0;
-    width: 320px;
+    top: 0; left: 0; right: 0; bottom: 0;
     z-index: 2;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 90px;
-    padding: 40px 20px;
+    gap: 48px;
+    padding: 40px 60px;
 }
 .dag-layer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 28px;
+    flex-shrink: 0;
 }
 .dag-node {
     background: rgba(20, 35, 65, 0.5);
     border: 1.5px solid rgba(212, 175, 55, 0.25);
     border-radius: 12px;
-    min-width: 280px;
+    min-width: 160px;
+    max-width: 200px;
     cursor: pointer;
     overflow: hidden;
     position: relative;
@@ -497,6 +503,13 @@ a, button, .dag-node {
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--text-h);
+    letter-spacing: 0.3px;
+}
+
+.node-sublabel {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
     letter-spacing: 0.3px;
 }
 
@@ -773,7 +786,7 @@ a, button, .dag-node {
 .hero-photo-ring {
     width: 300px;
     height: 300px;
-    border-radius: 20px;
+    border-radius: 50%;
     padding: 8px;
     background: linear-gradient(135deg, var(--accent), #60a5fa);
     box-shadow: 0 0 60px var(--accent-glow), 0 0 120px rgba(212, 175, 55, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
@@ -795,7 +808,7 @@ a, button, .dag-node {
 .hero-photo {
     width: 100%;
     height: 100%;
-    border-radius: 16px;
+    border-radius: 50%;
     object-fit: cover;
     border: 3px solid rgba(255, 255, 255, 0.1);
     background: var(--bg-card);
@@ -1130,6 +1143,35 @@ a, button, .dag-node {
 .edu-degree { font-size: 1rem; font-weight: 700; color: var(--text-h); margin-bottom: 6px; }
 .edu-school { font-size: 0.9rem; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
 .edu-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+/* ── DAG panel nav links ── */
+.dag-nav-link {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    padding: 6px 16px;
+    border-radius: 6px;
+    transition: all var(--transition);
+}
+.dag-nav-link:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* ── CERTIFICATIONS heading ── */
+.cert-heading {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-h);
+    margin: 48px 0 20px;
+    letter-spacing: 0.5px;
+    border-left: 3px solid var(--accent);
+    padding-left: 14px;
+}
 
 /* ── CONTACT ── */
 .contact-inner { text-align: center; }
