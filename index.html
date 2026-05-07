@@ -4,534 +4,559 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sushma Vunnam | Machine Learning Data Engineer</title>
-    <meta name="description" content="Sushma Vunnam — Machine Learning Data Engineer specializing in large-scale Spark pipelines, real-time streaming, and ML infrastructure on AWS & Azure.">
+    <meta name="description" content="Sushma Vunnam — Machine Learning Data Engineer. 500M+ records/day. Spark, Kafka, AWS, Delta Lake.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ═══════════════════════════════════════
-         STICKY NAVBAR
-    ═══════════════════════════════════════ -->
-    <header class="navbar" id="navbar">
-        <div class="nav-logo">
-            <span class="logo-icon">⚜️</span>
-            <span style="font-family: 'Cormorant Garamond', serif; letter-spacing: 2px;">SUSHMA VUNNAM</span>
-        </div>
+    <canvas id="bg-canvas"></canvas>
 
-        <!-- Structure-only nav links -->
+    <!-- ═══ NAVBAR ═══ -->
+    <header class="navbar" id="navbar">
+        <a class="nav-logo" href="#hero">
+            <div class="logo-mark">SV</div>
+            Sushma Vunnam
+        </a>
+
         <nav class="nav-links" id="nav-links">
-            <a href="#about" class="nav-link">About</a>
-            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#about"      class="nav-link">About</a>
+            <a href="#skills"     class="nav-link">Skills</a>
             <a href="#experience" class="nav-link">Experience</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#education" class="nav-link">Education</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#projects"   class="nav-link">Projects</a>
+            <a href="#education"  class="nav-link">Education</a>
+            <a href="#contact"    class="nav-link">Contact</a>
         </nav>
 
         <div class="nav-controls">
-            <!-- DAG controls (graph view only) -->
-            <div class="dag-controls" id="dag-controls">
-                <button id="trigger-dag-btn" class="btn btn-primary btn-sm">
-                    <span>▶</span> Run Pipeline
-                </button>
-                <button id="clear-dag-btn" class="btn btn-secondary btn-sm">
-                    <span>↺</span> Clear
-                </button>
-            </div>
-
-            <!-- View Toggle -->
-            <div class="view-toggle" id="view-toggle-btn" title="Switch view">
-                <button class="toggle-pill" id="graph-pill" data-view="graph">
-                    ⬡ Graph
-                </button>
-                <button class="toggle-pill active" id="structure-pill" data-view="structure">
-                    ☰ Structure
-                </button>
-            </div>
-
-            <!-- Dark / Light toggle -->
-            <button class="theme-btn" id="theme-btn" title="Toggle dark/light mode">🌙</button>
+            <button class="theme-btn" id="theme-btn" title="Toggle theme">🌙</button>
         </div>
     </header>
 
 
-    <!-- ═══════════════════════════════════════
-         GRAPH VIEW  (DAG Pipeline)
-    ═══════════════════════════════════════ -->
-    <div id="graph-view" class="view hidden">
-        <div class="background-grid"></div>
+    <div id="structure-view">
 
-        <main class="workspace">
-            <svg id="edges-container" width="100%" height="100%"></svg>
-
-            <div class="nodes-container">
-                <div class="dag-layer" id="layer-1">
-                    <div class="dag-node" id="node-about" data-status="pending" data-section="about">
-                        <div class="node-status-color"></div>
-                        <div class="node-content">
-                            <span class="node-icon">🧑‍💻</span>
-                            <span class="node-label">About Me</span>
-                            <span class="node-sublabel">Sushma Vunnam</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dag-layer" id="layer-2">
-                    <div class="dag-node" id="node-skills" data-status="pending" data-section="skills">
-                        <div class="node-status-color"></div>
-                        <div class="node-content">
-                            <span class="node-icon">⚙️</span>
-                            <span class="node-label">Tech Stack</span>
-                            <span class="node-sublabel">Spark · Kafka · dbt · AWS</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dag-layer" id="layer-3">
-                    <div class="dag-node" id="node-experience" data-status="pending" data-section="experience">
-                        <div class="node-status-color"></div>
-                        <div class="node-content">
-                            <span class="node-icon">💼</span>
-                            <span class="node-label">Experience</span>
-                            <span class="node-sublabel">Walmart · UCode · Accenture</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dag-layer" id="layer-4">
-                    <div class="dag-node" id="node-projects" data-status="pending" data-section="projects">
-                        <div class="node-status-color"></div>
-                        <div class="node-content">
-                            <span class="node-icon">🚀</span>
-                            <span class="node-label">Projects</span>
-                            <span class="node-sublabel">Pipelines · RAG · GenAI</span>
-                        </div>
-                    </div>
-                    <div class="dag-node" id="node-education" data-status="pending" data-section="education">
-                        <div class="node-status-color"></div>
-                        <div class="node-content">
-                            <span class="node-icon">🎓</span>
-                            <span class="node-label">Education</span>
-                            <span class="node-sublabel">GMU · SASTRA · Certs</span>
-                        </div>
-                    </div>
+        <!-- ── HERO ── -->
+        <section id="hero" class="s-hero">
+            <div class="hero-grid"></div>
+            <div class="hero-inner" id="hero-inner">
+                <div class="hero-kicker hero-anim" style="--delay:0s">Machine Learning Data Engineer</div>
+                <h1 class="hero-name hero-anim" id="hero-name" style="--delay:0.12s">
+                    <span class="line-1">Sushma</span>
+                    <span class="line-2">Vunnam.</span>
+                </h1>
+                <p class="hero-tagline hero-anim" style="--delay:0.26s">
+                    Building data infrastructure that moves <strong>500M+ records daily</strong> — Spark, Kafka, Delta Lake, and GenAI at enterprise scale.
+                </p>
+                <div class="hero-cta hero-anim" style="--delay:0.4s">
+                    <a href="./resume.pdf" target="_blank" class="btn btn-primary">📄 Resume</a>
+                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                    <a href="https://www.linkedin.com/in/sushmav19" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
                 </div>
             </div>
-        </main>
-
-        <!-- Side Panel -->
-        <aside class="details-panel" id="details-panel">
-            <div class="panel-header">
-                <h2 id="panel-title">Task Details</h2>
-                <button id="close-panel-btn" class="icon-btn">✕</button>
-            </div>
-            <div class="panel-body">
-                <div class="panel-metadata">
-                    <p><strong>Operator:</strong> <span class="monospaced">BashOperator</span></p>
-                    <p><strong>State:</strong> <span id="panel-state-badge" class="badge badge-pending">Pending</span></p>
-                    <p><strong>Duration:</strong> <span id="panel-duration">0.00s</span></p>
-                </div>
-                <div class="panel-log-section">
-                    <h3>View Logs</h3>
-                    <div id="panel-logs" class="log-window">
-                        <p class="log-line">Waiting for task execution to complete...</p>
-                    </div>
-                </div>
-                <div class="panel-rendered-content" id="panel-content"></div>
-            </div>
-        </aside>
-    </div>
-
-
-    <!-- ═══════════════════════════════════════
-         STRUCTURE VIEW  (Scrollable Portfolio)
-    ═══════════════════════════════════════ -->
-    <div id="structure-view" class="view">
-
-        <!-- ── HERO ─────────────────────────────── -->
-        <section id="about" class="section hero-section">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <p class="hero-greeting">Hi, I'm</p>
-                    <h1 class="hero-name">Sushma Vunnam</h1>
-                    <p class="hero-title">Machine Learning Data Engineer</p>
-                    <p class="hero-bio">
-                        Data Engineer with <strong>3+ years</strong> designing and operating enterprise-scale data platforms at Walmart Global Tech and Accenture, moving <strong>100M+ records daily</strong> with sub-second reliability. Deep expertise in Apache Spark, Kafka, and <strong>data lakehouse architecture</strong> across AWS &amp; Azure — from raw ingestion to real-time streaming, distributed ETL, dimensional data modeling, and generative AI integration.
-                    </p>
-                    <div class="hero-cta">
-                        <a href="./resume.pdf" target="_blank" class="btn btn-primary">📄 Resume</a>
-                        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-                        <a href="https://www.linkedin.com/in/sushmav19" target="_blank" class="btn btn-ghost">in LinkedIn</a>
-                    </div>
-                </div>
-                <div class="hero-photo-wrap">
-                    <div class="hero-photo-ring">
-                        <img src="./profile_new.png" alt="Sushma Vunnam" class="hero-photo">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Impact metrics -->
-            <div class="metrics-row">
-                <div class="metric-card">
-                    <span class="metric-num">100M+</span>
-                    <span class="metric-desc">Records / Day</span>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-num">3+</span>
-                    <span class="metric-desc">Years Experience</span>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-num">80%</span>
-                    <span class="metric-desc">Spark Perf. Boost</span>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-num">6B+</span>
-                    <span class="metric-desc">Records / Batch</span>
-                </div>
-            </div>
+            <div class="hero-scroll" aria-hidden="true">scroll</div>
         </section>
 
-        <!-- ── SKILLS ─────────────────────────────── -->
-        <section id="skills" class="section">
-            <div class="section-inner">
-                <h2 class="section-title">Technical Skills</h2>
-                <p class="section-subtitle">Full-stack data engineering competencies</p>
-
-                <div class="skills-tabs">
-                    <button class="skill-tab active" data-tab="bigdata">Big Data</button>
-                    <button class="skill-tab" data-tab="streaming">Streaming</button>
-                    <button class="skill-tab" data-tab="cloud">Cloud &amp; DevOps</button>
-                    <button class="skill-tab" data-tab="databases">Databases</button>
-                    <button class="skill-tab" data-tab="ai">Languages &amp; AI</button>
-                </div>
-
-                <div class="skills-panel active" data-panel="bigdata">
-                    <div class="skill-chips">
-                        <span class="skill-chip featured">Apache Spark</span>
-                        <span class="skill-chip featured">PySpark</span>
-                        <span class="skill-chip featured">dbt (data build tool)</span>
-                        <span class="skill-chip">Scala</span>
-                        <span class="skill-chip">Hadoop / HDFS</span>
-                        <span class="skill-chip">Apache Hive</span>
-                        <span class="skill-chip">Adaptive Query Execution</span>
-                        <span class="skill-chip">Delta Lake</span>
-                        <span class="skill-chip">Apache Iceberg</span>
-                        <span class="skill-chip">Parquet / ORC</span>
-                        <span class="skill-chip">Data Modeling</span>
+        <!-- ── PIPELINE DAG ── -->
+        <section class="s-pipeline">
+            <div class="pipeline-grid-bg"></div>
+            <p class="t-eyebrow pipeline-eyebrow">Portfolio Pipeline</p>
+            <div class="pipeline-wrap" id="pipeline-wrap">
+                <svg class="pipeline-svg" id="pipeline-svg"></svg>
+                <div class="pipeline-nodes" id="pipeline-nodes">
+                    <div class="pipe-node" id="pn-about">
+                        <span class="pipe-icon">🧑‍💻</span>
+                        <span class="pipe-title">About Me</span>
+                        <span class="pipe-sub">Sushma Vunnam</span>
                     </div>
-                </div>
-                <div class="skills-panel" data-panel="streaming">
-                    <div class="skill-chips">
-                        <span class="skill-chip featured">Apache Kafka</span>
-                        <span class="skill-chip featured">Spark Streaming</span>
-                        <span class="skill-chip">Micro-batch Processing</span>
-                        <span class="skill-chip">Real-time Pipelines</span>
-                        <span class="skill-chip">Event-driven Architecture</span>
+                    <div class="pipe-node" id="pn-skills">
+                        <span class="pipe-icon">⚙️</span>
+                        <span class="pipe-title">Tech Stack</span>
+                        <span class="pipe-sub">Spark · Kafka · dbt · AWS</span>
                     </div>
-                </div>
-                <div class="skills-panel" data-panel="cloud">
-                    <div class="skill-chips">
-                        <span class="skill-chip featured">AWS (Bedrock, EC2, S3, Glue)</span>
-                        <span class="skill-chip featured">Azure (Data Factory, ADLS)</span>
-                        <span class="skill-chip featured">Databricks</span>
-                        <span class="skill-chip">Apache Airflow</span>
-                        <span class="skill-chip">Prometheus</span>
-                        <span class="skill-chip">Grafana</span>
-                        <span class="skill-chip">Docker</span>
-                        <span class="skill-chip">Terraform</span>
-                        <span class="skill-chip">CI/CD</span>
+                    <div class="pipe-node" id="pn-experience">
+                        <span class="pipe-icon">💼</span>
+                        <span class="pipe-title">Experience</span>
+                        <span class="pipe-sub">Walmart · UCode · Accenture</span>
                     </div>
-                </div>
-                <div class="skills-panel" data-panel="databases">
-                    <div class="skill-chips">
-                        <span class="skill-chip featured">Apache Cassandra</span>
-                        <span class="skill-chip featured">Snowflake</span>
-                        <span class="skill-chip">PostgreSQL</span>
-                        <span class="skill-chip">MongoDB</span>
-                        <span class="skill-chip">Milvus (Vector DB)</span>
-                        <span class="skill-chip">Delta Lake</span>
-                        <span class="skill-chip">BigQuery</span>
-                    </div>
-                </div>
-                <div class="skills-panel" data-panel="ai">
-                    <div class="skill-chips">
-                        <span class="skill-chip featured">Java 8/17</span>
-                        <span class="skill-chip featured">Python (FastAPI)</span>
-                        <span class="skill-chip featured">Claude 3 / Sonnet</span>
-                        <span class="skill-chip featured">AWS Bedrock</span>
-                        <span class="skill-chip">SQL</span>
-                        <span class="skill-chip">Prompt Engineering</span>
-                        <span class="skill-chip">RAG Pipelines</span>
-                        <span class="skill-chip">LangChain</span>
-                        <span class="skill-chip">AI-Assisted Development</span>
-                        <span class="skill-chip">Generative AI Integration</span>
-                        <span class="skill-chip">AI for Sustainability</span>
-                        <span class="skill-chip">Vector Embeddings</span>
+                    <div class="pipe-fork">
+                        <div class="pipe-node" id="pn-projects">
+                            <span class="pipe-icon">🚀</span>
+                            <span class="pipe-title">Projects</span>
+                            <span class="pipe-sub">Pipelines · RAG · GenAI</span>
+                        </div>
+                        <div class="pipe-node" id="pn-education">
+                            <span class="pipe-icon">🎓</span>
+                            <span class="pipe-title">Education</span>
+                            <span class="pipe-sub">GMU · SASTRA · Certs</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ── EXPERIENCE ─────────────────────────── -->
-        <section id="experience" class="section">
-            <div class="section-inner">
-                <h2 class="section-title">Experience</h2>
-                <p class="section-subtitle">Building data infrastructure at scale</p>
+        <!-- ── TICKER ── -->
+        <div class="ticker-wrap" aria-hidden="true">
+            <div class="ticker">
+                <!-- Two copies for seamless loop -->
+                <span class="ticker-item">Apache Spark</span>
+                <span class="ticker-item">Apache Kafka</span>
+                <span class="ticker-item">Delta Lake</span>
+                <span class="ticker-item">dbt</span>
+                <span class="ticker-item">AWS Bedrock</span>
+                <span class="ticker-item">Databricks</span>
+                <span class="ticker-item">Python</span>
+                <span class="ticker-item">PySpark</span>
+                <span class="ticker-item">Snowflake</span>
+                <span class="ticker-item">Apache Airflow</span>
+                <span class="ticker-item">Vector DB</span>
+                <span class="ticker-item">RAG Pipelines</span>
+                <span class="ticker-item">Claude 3</span>
+                <span class="ticker-item">Java 17</span>
+                <span class="ticker-item">Apache Spark</span>
+                <span class="ticker-item">Apache Kafka</span>
+                <span class="ticker-item">Delta Lake</span>
+                <span class="ticker-item">dbt</span>
+                <span class="ticker-item">AWS Bedrock</span>
+                <span class="ticker-item">Databricks</span>
+                <span class="ticker-item">Python</span>
+                <span class="ticker-item">PySpark</span>
+                <span class="ticker-item">Snowflake</span>
+                <span class="ticker-item">Apache Airflow</span>
+                <span class="ticker-item">Vector DB</span>
+                <span class="ticker-item">RAG Pipelines</span>
+                <span class="ticker-item">Claude 3</span>
+                <span class="ticker-item">Java 17</span>
+            </div>
+        </div>
+
+        <!-- ── IMPACT STATS ── -->
+        <section class="s-impact section">
+            <div class="container">
+                <div class="impact-label reveal">
+                    <p class="t-eyebrow">Impact by the numbers</p>
+                </div>
+                <div class="impact-grid">
+                    <div class="impact-stat reveal reveal-d1">
+                        <span class="impact-num" data-target="500" data-suffix="M+">0</span>
+                        <span class="impact-unit">Records per day</span>
+                    </div>
+                    <div class="impact-stat reveal reveal-d2">
+                        <span class="impact-num" data-target="3" data-suffix="+">0</span>
+                        <span class="impact-unit">Years experience</span>
+                    </div>
+                    <div class="impact-stat reveal reveal-d3">
+                        <span class="impact-num" data-target="80" data-suffix="%">0</span>
+                        <span class="impact-unit">Spark perf. boost</span>
+                    </div>
+                    <div class="impact-stat reveal reveal-d4">
+                        <span class="impact-num" data-target="6" data-suffix="B+">0</span>
+                        <span class="impact-unit">Records per batch</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── ABOUT ── -->
+        <section id="about" class="s-about section">
+            <div class="container">
+                <div class="about-split">
+                    <div class="about-left">
+                        <p class="t-eyebrow reveal" style="margin-bottom:20px">About me</p>
+                        <p class="about-statement word-split reveal" id="about-statement">
+                            I've always been drawn to bringing <em>structure</em> to complexity.
+                        </p>
+                    </div>
+                    <div class="about-right">
+                        <div class="about-photo-wrap reveal">
+                            <div class="about-photo-frame" id="photo3d">
+                                <img src="./profile_new.png" alt="Sushma Vunnam">
+                            </div>
+                            <div class="about-badge">
+                                Walmart Global Tech<br>
+                                <span style="opacity:0.7;font-weight:400">Dec 2024 – Present</span>
+                            </div>
+                        </div>
+                        <div class="about-bio reveal reveal-d2">
+                            <p>Whether organizing an event where every detail needs to fall into place, or building a data pipeline where every record needs to land exactly where it should — the mindset is the same. It started at <strong style="color:var(--text-1)">Accenture</strong>, where I found myself genuinely enjoying not just the technical side of handling large datasets, but the idea that clean, well-structured data actually helps people make better decisions.</p>
+                            <p style="margin-top:12px">That realization pushed me to pursue a <strong style="color:var(--text-1)">Master's in Data Analytics Engineering</strong> at George Mason University. Today at <strong style="color:var(--text-1)">Walmart Global Tech</strong>, I design and maintain the pipelines that supply chain, forecasting, and personalization teams depend on — processing <strong style="color:var(--text-1)">100M+ daily records</strong> across the full stack: ingestion, transformation, validation, and delivery.</p>
+                            <p style="margin-top:12px">What drives me is the moment a stakeholder finally understands something that used to feel opaque — or another team moves faster because a pipeline I built just works. That intersection of <strong style="color:var(--text-1)">solid infrastructure and real business impact</strong> is where I do my best work.</p>
+                        </div>
+                        <div class="hero-cta reveal reveal-d3">
+                            <a href="./resume.pdf" target="_blank" class="btn btn-primary">📄 Resume</a>
+                            <a href="#contact" class="btn btn-outline">Let's Connect</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── SKILLS ── -->
+        <section id="skills" class="s-skills section">
+            <div class="container">
+                <div class="skills-header">
+                    <p class="t-eyebrow reveal" style="margin-bottom:16px">What I work with</p>
+                    <h2 class="t-headline reveal reveal-d1">
+                        ML <span class="g-text">Data Engineer.</span>
+                    </h2>
+                </div>
+                <div class="skills-layout">
+                    <div class="skill-bars reveal reveal-d1">
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-head">
+                                <span class="skill-bar-name"><span class="skill-icon">⚡</span>Apache Spark / PySpark</span>
+                                <span class="skill-pct">95%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" style="--pct:95%"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-head">
+                                <span class="skill-bar-name"><span class="skill-icon">📨</span>Apache Kafka</span>
+                                <span class="skill-pct">90%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" style="--pct:90%"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-head">
+                                <span class="skill-bar-name"><span class="skill-icon">☁️</span>AWS / Azure / Databricks</span>
+                                <span class="skill-pct">88%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" style="--pct:88%"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-head">
+                                <span class="skill-bar-name"><span class="skill-icon">🐍</span>Python / FastAPI</span>
+                                <span class="skill-pct">92%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" style="--pct:92%"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-head">
+                                <span class="skill-bar-name"><span class="skill-icon">🧠</span>GenAI / RAG Pipelines</span>
+                                <span class="skill-pct">82%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" style="--pct:82%"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-head">
+                                <span class="skill-bar-name"><span class="skill-icon">🗄️</span>dbt / Delta Lake / Snowflake</span>
+                                <span class="skill-pct">87%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" style="--pct:87%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-logo-grid reveal reveal-d2">
+                        <div class="skill-logo"><span class="skill-emoji">⚡</span><span class="skill-lbl">Spark</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">📨</span><span class="skill-lbl">Kafka</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">☁️</span><span class="skill-lbl">AWS</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🔷</span><span class="skill-lbl">Azure</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🧱</span><span class="skill-lbl">Delta Lake</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🔄</span><span class="skill-lbl">dbt</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🐍</span><span class="skill-lbl">Python</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">☕</span><span class="skill-lbl">Java</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">❄️</span><span class="skill-lbl">Snowflake</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🌀</span><span class="skill-lbl">Airflow</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🤖</span><span class="skill-lbl">Bedrock</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🧠</span><span class="skill-lbl">RAG</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🐬</span><span class="skill-lbl">Databricks</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🐳</span><span class="skill-lbl">Docker</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">📊</span><span class="skill-lbl">Grafana</span></div>
+                        <div class="skill-logo"><span class="skill-emoji">🔭</span><span class="skill-lbl">Milvus</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── EXPERIENCE ── -->
+        <section id="experience" class="s-experience section">
+            <div class="container">
+                <div class="exp-header">
+                    <p class="t-eyebrow reveal" style="margin-bottom:16px">Career</p>
+                    <h2 class="t-headline reveal reveal-d1">Work <span class="g-text">experience.</span></h2>
+                </div>
 
                 <div class="timeline">
-
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-card">
-                            <div class="timeline-header">
-                                <div>
-                                    <h3 class="timeline-role">Data Engineer</h3>
-                                    <p class="timeline-company">🏢 Walmart Global Tech</p>
-                                </div>
-                                <span class="timeline-date">Dec 2024 – Present</span>
-                            </div>
-                            <ul class="timeline-points">
-                                <li>Designed real-time marketplace pipeline handling <strong>50M+ events/day</strong> using Apache Kafka + Java consumers, powering live pricing and inventory decisions</li>
-                                <li>Achieved <strong>80% Spark performance boost</strong> via Adaptive Query Execution (AQE) tuning, broadcast joins, and dynamic partition strategy</li>
-                                <li>Processed <strong>6B+ records per batch run</strong> on Walmart's Harmony Platform with Delta Lake storage using a multi-layer <strong>Bronze → Silver → Gold</strong> lakehouse pattern</li>
-                                <li>Modeled dimensional data schemas (star schema, SCD Type 2) for analytics consumption by downstream BI and ML teams</li>
-                                <li>Built end-to-end observability with Prometheus + Grafana dashboards for real-time SLA monitoring and pipeline health alerting</li>
+                    <div class="tl-item reveal">
+                        <div class="tl-meta">
+                            <p class="tl-date">Dec 2024 – Present</p>
+                            <p class="tl-company">Walmart Global Tech</p>
+                            <p class="tl-type">Data Engineer</p>
+                        </div>
+                        <div class="tl-body">
+                            <h3 class="tl-role">Data Engineer</h3>
+                            <ul class="tl-points">
+                                <li>Designed real-time marketplace pipeline handling <strong>50M+ events/day</strong> via Apache Kafka + Java consumers, powering live pricing and inventory decisions</li>
+                                <li>Achieved <strong>80% Spark performance boost</strong> via AQE tuning, broadcast joins, and dynamic partition strategy</li>
+                                <li>Processed <strong>6B+ records per batch</strong> on Harmony Platform with Delta Lake — Bronze → Silver → Gold lakehouse</li>
+                                <li>Modeled star schema + SCD Type 2 dimensional schemas for downstream BI and ML teams</li>
+                                <li>Built observability with Prometheus + Grafana for real-time SLA monitoring</li>
                             </ul>
-                            <div class="timeline-chips">
-                                <span class="skill-chip sm">Apache Kafka</span>
-                                <span class="skill-chip sm">Apache Spark</span>
-                                <span class="skill-chip sm">Delta Lake</span>
-                                <span class="skill-chip sm">Java</span>
-                                <span class="skill-chip sm">Prometheus</span>
-                                <span class="skill-chip sm">Grafana</span>
+                            <div class="tl-chips">
+                                <span class="chip">Kafka</span>
+                                <span class="chip">Spark</span>
+                                <span class="chip">Delta Lake</span>
+                                <span class="chip">Java</span>
+                                <span class="chip">Prometheus</span>
+                                <span class="chip">Grafana</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-card">
-                            <div class="timeline-header">
-                                <div>
-                                    <h3 class="timeline-role">Software Trainee (Intern)</h3>
-                                    <p class="timeline-company">💻 UCode Technologies LLC</p>
-                                </div>
-                                <span class="timeline-date">Jun 2024 – Nov 2024</span>
-                            </div>
-                            <ul class="timeline-points">
-                                <li>Developed backend data processing services using <strong>Python (Flask/FastAPI)</strong> supporting analytics and automation workflows</li>
-                                <li>Built ETL pipelines integrating <strong>MySQL, internal APIs, and preprocessing modules</strong>, reducing manual data preparation</li>
-                                <li>Implemented robust validation, logging, and exception handling ensuring reliable, analysis-ready datasets</li>
-                                <li>Supported <strong>CI/CD automation</strong> for backend deployment pipelines, improving release reliability</li>
-                                <li>Contributed to Agile sprint execution, documentation, and cross-team collaboration</li>
+                    <div class="tl-item reveal">
+                        <div class="tl-meta">
+                            <p class="tl-date">Jun – Nov 2024</p>
+                            <p class="tl-company">UCode Technologies</p>
+                            <p class="tl-type">Software Trainee</p>
+                        </div>
+                        <div class="tl-body">
+                            <h3 class="tl-role">Software Trainee (Intern)</h3>
+                            <ul class="tl-points">
+                                <li>Built backend data processing services with <strong>Python (Flask/FastAPI)</strong> for analytics and automation</li>
+                                <li>Developed ETL pipelines integrating MySQL, internal APIs, and preprocessing modules</li>
+                                <li>Supported CI/CD automation for backend deployment pipelines</li>
                             </ul>
-                            <div class="timeline-chips">
-                                <span class="skill-chip sm">Python</span>
-                                <span class="skill-chip sm">FastAPI</span>
-                                <span class="skill-chip sm">Flask</span>
-                                <span class="skill-chip sm">MySQL</span>
-                                <span class="skill-chip sm">ETL</span>
-                                <span class="skill-chip sm">CI/CD</span>
+                            <div class="tl-chips">
+                                <span class="chip">Python</span>
+                                <span class="chip">FastAPI</span>
+                                <span class="chip">MySQL</span>
+                                <span class="chip">CI/CD</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="timeline-item reveal">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-card">
-                            <div class="timeline-header">
-                                <div>
-                                    <h3 class="timeline-role">Associate Software Engineer</h3>
-                                    <p class="timeline-company">🌐 Accenture</p>
-                                </div>
-                                <span class="timeline-date">Feb 2021 – Jun 2022</span>
-                            </div>
-                            <ul class="timeline-points">
-                                <li>Designed and implemented ETL pipelines using <strong>Python, SQL, and Apache Spark</strong> to process enterprise client data from SAP systems, databases, and flat files</li>
-                                <li>Built automated data ingestion workflows handling <strong>10M+ daily records</strong> from heterogeneous sources (Oracle, SQL Server, CSV), ensuring data quality across downstream systems</li>
-                                <li>Developed data validation frameworks with schema validation, null checks, and business rule enforcement — reducing data quality issues significantly</li>
-                                <li>Created data transformation logic using <strong>PySpark and SQL</strong> for cleansing, aggregation, and standardization supporting analytics and reporting</li>
-                                <li>Optimized pipeline performance through partitioning strategies, caching, and query optimization — improving processing speed</li>
-                                <li>Collaborated with business analysts and client stakeholders to translate data requirements into technical pipeline specifications</li>
-                                <li>Implemented monitoring and alerting using custom Python scripts and logging frameworks, ensuring pipeline uptime</li>
-                                <li>Supported data migration from legacy systems to modern platforms, handling data mapping, transformation, and validation</li>
-                                <li>Participated in Agile development cycles, code reviews, and documentation of data engineering best practices</li>
+                    <div class="tl-item reveal">
+                        <div class="tl-meta">
+                            <p class="tl-date">Feb 2021 – Jun 2022</p>
+                            <p class="tl-company">Accenture</p>
+                            <p class="tl-type">Associate Engineer</p>
+                        </div>
+                        <div class="tl-body">
+                            <h3 class="tl-role">Associate Software Engineer</h3>
+                            <ul class="tl-points">
+                                <li>Designed ETL pipelines processing <strong>10M+ daily records</strong> from SAP, Oracle, and flat files using Python + Spark</li>
+                                <li>Built data validation frameworks with schema checks, null handling, and business rule enforcement</li>
+                                <li>Optimised pipeline performance via partitioning, caching, and query tuning</li>
+                                <li>Supported data migration from legacy systems with mapping, transformation, and validation</li>
                             </ul>
-                            <div class="timeline-chips">
-                                <span class="skill-chip sm">PySpark</span>
-                                <span class="skill-chip sm">Python</span>
-                                <span class="skill-chip sm">SQL</span>
-                                <span class="skill-chip sm">SAP</span>
-                                <span class="skill-chip sm">Airflow</span>
-                                <span class="skill-chip sm">Data Modeling</span>
-                                <span class="skill-chip sm">ETL</span>
+                            <div class="tl-chips">
+                                <span class="chip">PySpark</span>
+                                <span class="chip">Python</span>
+                                <span class="chip">SQL</span>
+                                <span class="chip">SAP</span>
+                                <span class="chip">Airflow</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- ── PROJECTS ───────────────────────────── -->
-        <section id="projects" class="section">
-            <div class="section-inner">
-                <h2 class="section-title">Projects</h2>
-                <p class="section-subtitle">Engineering at scale</p>
-
+        <!-- ── PROJECTS ── -->
+        <section id="projects" class="s-projects section">
+            <div class="container">
+                <div class="proj-header">
+                    <p class="t-eyebrow reveal" style="margin-bottom:16px">Built by me</p>
+                    <h2 class="t-headline reveal reveal-d1">Featured <span class="g-text">projects.</span></h2>
+                </div>
                 <div class="projects-grid">
-
-                    <div class="project-card reveal">
-                        <div class="project-header">
-                            <span class="project-icon">⚡</span>
-                            <span class="project-tag">Big Data</span>
+                    <div class="proj-card reveal">
+                        <div class="proj-top">
+                            <span class="proj-icon">⚡</span>
+                            <span class="proj-tag">Big Data</span>
                         </div>
-                        <h3 class="project-title">Enterprise PySpark Pipeline</h3>
-                        <p class="project-desc">Scalable ETL pipeline processing <strong>50M+ records</strong> end-to-end. Achieved 45% throughput improvement through strict partition strategies and AQE configuration.</p>
-                        <div class="project-chips">
-                            <span class="skill-chip sm">PySpark</span>
-                            <span class="skill-chip sm">AQE</span>
-                            <span class="skill-chip sm">Delta Lake</span>
-                            <span class="skill-chip sm">Python</span>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal">
-                        <div class="project-header">
-                            <span class="project-icon">🤖</span>
-                            <span class="project-tag">Generative AI</span>
-                        </div>
-                        <h3 class="project-title">Generative AI Chatbot — AWS Bedrock</h3>
-                        <p class="project-desc">Multi-model benchmarking framework on AWS Bedrock evaluating Claude 3 Sonnet vs. Titan with structured zero-shot / few-shot prompt engineering. Claude 3 consistently outperformed.</p>
-                        <div class="project-chips">
-                            <span class="skill-chip sm">AWS Bedrock</span>
-                            <span class="skill-chip sm">Claude 3</span>
-                            <span class="skill-chip sm">Prompt Eng.</span>
-                            <span class="skill-chip sm">Python</span>
+                        <h3 class="proj-title">Enterprise PySpark Pipeline</h3>
+                        <p class="proj-desc">Scalable ETL processing <strong>50M+ records</strong> end-to-end with 45% throughput improvement via AQE and partition strategy on Walmart's Harmony Platform.</p>
+                        <div class="proj-chips">
+                            <span class="chip">PySpark</span>
+                            <span class="chip">AQE</span>
+                            <span class="chip">Delta Lake</span>
+                            <span class="chip">Python</span>
                         </div>
                     </div>
 
-                    <div class="project-card reveal">
-                        <div class="project-header">
-                            <span class="project-icon">🧠</span>
-                            <span class="project-tag">ML Infrastructure</span>
+                    <div class="proj-card reveal reveal-d1">
+                        <div class="proj-top">
+                            <span class="proj-icon">🤖</span>
+                            <span class="proj-tag">Generative AI</span>
                         </div>
-                        <h3 class="project-title">Kafka → Milvus RAG Pipeline</h3>
-                        <p class="project-desc">Streaming Kafka topics into Milvus vector database for low-latency Retrieval-Augmented Generation (RAG) within enterprise network boundaries. Targeting sub-100ms retrieval.</p>
-                        <div class="project-chips">
-                            <span class="skill-chip sm">Kafka</span>
-                            <span class="skill-chip sm">Milvus</span>
-                            <span class="skill-chip sm">RAG</span>
-                            <span class="skill-chip sm">Vector DB</span>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal">
-                        <div class="project-header">
-                            <span class="project-icon">🏗️</span>
-                            <span class="project-tag">Data Architecture</span>
-                        </div>
-                        <h3 class="project-title">Cloud Data Lakehouse Platform</h3>
-                        <p class="project-desc">Designed a multi-layer lakehouse (Bronze → Silver → Gold) on AWS S3 + Delta Lake with schema enforcement, data quality checks via dbt, and Airflow-orchestrated daily refresh. Reduced reporting latency by <strong>70%</strong> vs legacy warehouse.</p>
-                        <div class="project-chips">
-                            <span class="skill-chip sm">Delta Lake</span>
-                            <span class="skill-chip sm">dbt</span>
-                            <span class="skill-chip sm">AWS S3</span>
-                            <span class="skill-chip sm">Airflow</span>
-                            <span class="skill-chip sm">PySpark</span>
+                        <h3 class="proj-title">Generative AI Chatbot — AWS Bedrock</h3>
+                        <p class="proj-desc">Multi-model benchmarking on AWS Bedrock — Claude 3 Sonnet vs. Titan with zero-shot / few-shot prompt engineering. Claude 3 outperformed across all evaluation metrics.</p>
+                        <div class="proj-chips">
+                            <span class="chip">AWS Bedrock</span>
+                            <span class="chip">Claude 3</span>
+                            <span class="chip">Prompt Eng.</span>
+                            <span class="chip">Python</span>
                         </div>
                     </div>
 
+                    <div class="proj-card reveal">
+                        <div class="proj-top">
+                            <span class="proj-icon">🧠</span>
+                            <span class="proj-tag">ML Infrastructure</span>
+                        </div>
+                        <h3 class="proj-title">Kafka → Milvus RAG Pipeline</h3>
+                        <p class="proj-desc">Streaming Kafka topics into Milvus vector database for low-latency RAG within enterprise network boundaries. Targeting sub-100ms retrieval at scale.</p>
+                        <div class="proj-chips">
+                            <span class="chip">Kafka</span>
+                            <span class="chip">Milvus</span>
+                            <span class="chip">RAG</span>
+                            <span class="chip">Vector DB</span>
+                        </div>
+                    </div>
+
+                    <div class="proj-card reveal reveal-d1">
+                        <div class="proj-top">
+                            <span class="proj-icon">🏗️</span>
+                            <span class="proj-tag">Data Architecture</span>
+                        </div>
+                        <h3 class="proj-title">Cloud Data Lakehouse Platform</h3>
+                        <p class="proj-desc">Multi-layer lakehouse (Bronze → Silver → Gold) on AWS S3 + Delta Lake with dbt quality checks and Airflow orchestration. Reduced reporting latency <strong>70%</strong> vs legacy.</p>
+                        <div class="proj-chips">
+                            <span class="chip">Delta Lake</span>
+                            <span class="chip">dbt</span>
+                            <span class="chip">AWS S3</span>
+                            <span class="chip">Airflow</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ── EDUCATION ──────────────────────────── -->
-        <section id="education" class="section">
-            <div class="section-inner">
-                <h2 class="section-title">Education</h2>
-                <p class="section-subtitle">Academic foundation</p>
+        <!-- ── EDUCATION ── -->
+        <section id="education" class="s-education section">
+            <div class="container">
+                <div class="edu-header">
+                    <p class="t-eyebrow reveal" style="margin-bottom:16px">Academic</p>
+                    <h2 class="t-headline reveal reveal-d1">Education &amp; <span class="g-text">certs.</span></h2>
+                </div>
 
-                <div class="edu-grid">
-                    <div class="edu-card reveal">
-                        <div class="edu-icon">🎓</div>
-                        <div class="edu-body">
-                            <h3 class="edu-degree">MS, Data Analytics Engineering</h3>
+                <div class="edu-list">
+                    <div class="edu-item reveal">
+                        <div class="edu-year">2022 – 2024</div>
+                        <div>
+                            <p class="edu-degree">MS, Data Analytics Engineering</p>
                             <p class="edu-school">George Mason University, USA</p>
-                            <p class="edu-meta">2022 – 2024 &nbsp;|&nbsp; GPA: 3.70 / 4.0</p>
+                            <p class="edu-meta">GPA: 3.70 / 4.0</p>
                         </div>
                     </div>
-                    <div class="edu-card reveal">
-                        <div class="edu-icon">🏛️</div>
-                        <div class="edu-body">
-                            <h3 class="edu-degree">B.Tech, Electrical &amp; Electronics Engineering</h3>
+                    <div class="edu-item reveal">
+                        <div class="edu-year">2017 – 2021</div>
+                        <div>
+                            <p class="edu-degree">B.Tech, Electrical &amp; Electronics Engineering</p>
                             <p class="edu-school">SASTRA University, India</p>
-                            <p class="edu-meta">2017 – 2021 &nbsp;|&nbsp; GPA: 7.0 / 10</p>
+                            <p class="edu-meta">GPA: 7.0 / 10</p>
                         </div>
                     </div>
                 </div>
 
-                <h3 class="cert-heading">Certifications</h3>
-                <div class="edu-grid">
-                    <div class="edu-card reveal">
-                        <div class="edu-icon">🤖</div>
-                        <div class="edu-body">
-                            <h3 class="edu-degree">Leveraging AI &amp; Data Engineering for Sustainable Solutions</h3>
-                            <p class="edu-school">LinkedIn Learning</p>
-                            <p class="edu-meta">In Progress &nbsp;|&nbsp; Revolutionizing sustainability projects with AI</p>
+                <h3 class="certs-heading reveal">Certifications</h3>
+                <div class="certs-grid">
+                    <div class="cert-card reveal">
+                        <div class="cert-icon">🤖</div>
+                        <div>
+                            <p class="cert-title">Leveraging AI &amp; DE for Sustainable Solutions</p>
+                            <p class="cert-org">LinkedIn Learning</p>
+                            <p class="cert-date">In Progress</p>
                         </div>
                     </div>
-                    <div class="edu-card reveal">
-                        <div class="edu-icon">⚡</div>
-                        <div class="edu-body">
-                            <h3 class="edu-degree">Claude Code 101</h3>
-                            <p class="edu-school">Anthropic</p>
-                            <p class="edu-meta">In Progress &nbsp;|&nbsp; AI-assisted software engineering with Claude</p>
+                    <div class="cert-card reveal reveal-d1">
+                        <div class="cert-icon">⚡</div>
+                        <div>
+                            <p class="cert-title">Claude Code 101</p>
+                            <p class="cert-org">Anthropic</p>
+                            <p class="cert-date">In Progress</p>
                         </div>
                     </div>
-                    <div class="edu-card reveal">
-                        <div class="edu-icon">🏢</div>
-                        <div class="edu-body">
-                            <h3 class="edu-degree">Completion of Stream Training</h3>
-                            <p class="edu-school">Accenture in India</p>
-                            <p class="edu-meta">Issued Feb 2021</p>
+                    <div class="cert-card reveal reveal-d2">
+                        <div class="cert-icon">🏢</div>
+                        <div>
+                            <p class="cert-title">Completion of Stream Training</p>
+                            <p class="cert-org">Accenture India</p>
+                            <p class="cert-date">Feb 2021</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ── CONTACT ────────────────────────────── -->
-        <section id="contact" class="section">
-            <div class="section-inner contact-inner">
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="section-subtitle">Open to Senior Data Engineer &amp; ML Platform roles</p>
-                <div class="contact-links">
-                    <a href="https://www.linkedin.com/in/sushmav19" target="_blank" class="contact-card">
-                        <span class="contact-icon">in</span>
-                        <span>LinkedIn</span>
+        <!-- ── MY STORY ── -->
+        <section id="story" class="s-story section">
+            <div class="story-inner">
+                <p class="t-eyebrow story-eyebrow reveal">My Story</p>
+                <h2 class="story-headline reveal reveal-d1">The engineer<br><span class="g-text">behind the pipeline.</span></h2>
+                <div class="story-body reveal reveal-d2">
+                    <p>I've always been drawn to bringing structure to complexity — whether that's organizing an event where every detail needs to fall into place, or building a data pipeline where every record needs to land exactly where it should.</p>
+                    <p>Outside of work, I enjoy planning and hosting events — decorating, organizing, making sure everything comes together smoothly. There's something deeply satisfying about starting with a blank space and a lot of moving pieces, and ending with something that just works. I didn't realize it at the time, but that's exactly the mindset that makes a good data engineer.</p>
+                    <p>It started at <span class="story-highlight">Accenture</span>, where my work involved handling large datasets and cleaning messy, inconsistent data. I found myself genuinely enjoying it — not just the technical side, but the idea that clean, well-structured data actually helps people make better decisions. That realization pushed me to pursue a <span class="story-highlight">Master's in Data Analytics Engineering at George Mason University</span>, where I built a deeper foundation in data modeling, distributed systems, and applied machine learning.</p>
+                    <p>Today, at <span class="story-highlight">Walmart Global Tech</span>, I design and maintain the pipelines that teams across supply chain, forecasting, and personalization depend on. I work across the full stack — ingestion, transformation, validation, and delivery — processing <span class="story-highlight">100M+ daily records</span> with a focus on reliability and accuracy.</p>
+                    <p>What drives me isn't just the engineering. It's the moment a stakeholder looks at a dashboard and finally understands something that used to feel opaque. It's another team moving faster because a pipeline I built just works. That intersection of <span class="story-highlight">solid infrastructure and real business impact</span> is where I do my best work.</p>
+                </div>
+                <div class="story-cta reveal reveal-d3">
+                    <p>I'm currently open to full-time <span class="story-highlight">Data Engineer roles in the US</span>. If you're building something that needs reliable, scalable data systems behind it — I'd love to connect.</p>
+                    <div class="hero-cta" style="margin-top:24px">
+                        <a href="#contact" class="btn btn-primary">Let's Talk</a>
+                        <a href="./resume.pdf" target="_blank" class="btn btn-outline">📄 Resume</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CONTACT ── -->
+        <section id="contact" class="s-contact section">
+            <div class="container">
+                <p class="t-eyebrow reveal" style="margin-bottom:20px;justify-content:center;display:flex">Open to new roles</p>
+                <h2 class="contact-headline reveal reveal-d1">Let's<br><span class="g-text">talk.</span></h2>
+                <p class="contact-sub reveal reveal-d2">
+                    Open to Data Engineer &amp; ML Engineer roles. Let's build something that scales.
+                </p>
+                <div class="contact-links reveal reveal-d3">
+                    <a href="https://www.linkedin.com/in/sushmav19" target="_blank" class="contact-link">
+                        <span class="contact-link-icon">in</span> LinkedIn
                     </a>
-                    <a href="https://github.com/BabySushmaVunnam" target="_blank" class="contact-card">
-                        <span class="contact-icon">&#9651;</span>
-                        <span>GitHub</span>
+                    <a href="https://github.com/BabySushmaVunnam" target="_blank" class="contact-link">
+                        <span class="contact-link-icon">⌥</span> GitHub
                     </a>
-                    <a href="./resume.pdf" target="_blank" class="contact-card">
-                        <span class="contact-icon">📄</span>
-                        <span>Resume</span>
+                    <a href="mailto:applyvunnamsushma@gmail.com" class="contact-link">
+                        <span class="contact-link-icon">@</span> Email
+                    </a>
+                    <a href="./resume.pdf" target="_blank" class="contact-link">
+                        <span class="contact-link-icon">↓</span> Resume
                     </a>
                 </div>
             </div>
         </section>
 
         <footer class="site-footer">
-            <p>Designed &amp; built by Sushma Vunnam · Runs like the pipelines it represents.</p>
+            <span>© 2025 Sushma Vunnam</span>
+            <span style="color:var(--text-3)">Data pipelines at scale · Designed &amp; built by SV</span>
         </footer>
 
-    </div> <!-- end #structure-view -->
+    </div><!-- end #structure-view -->
+
+    <!-- ── PIPELINE SIDEBAR ── -->
+    <aside class="pipe-sidebar" id="pipe-sidebar">
+        <div class="pipe-sb-header">
+            <span class="pipe-sb-title" id="pipe-sb-title">sushma_vunnam.profile</span>
+            <button class="pipe-sb-close" id="pipe-sb-close">✕</button>
+        </div>
+        <div class="pipe-sb-body">
+            <div class="pipe-sb-meta">
+                <p><strong>Operator:</strong> <span class="t-mono">BashOperator</span></p>
+                <p><strong>State:</strong> <span class="pipe-sb-state-badge" id="pipe-sb-state">Pending</span></p>
+                <p><strong>Duration:</strong> <span class="t-mono">0.00s</span></p>
+            </div>
+            <div class="pipe-sb-logs-section">
+                <h3>View Logs</h3>
+                <div class="pipe-sb-logs" id="pipe-sb-logs">
+                    <div class="pipe-sb-log-line">Waiting for task execution to complete ...</div>
+                </div>
+            </div>
+            <div class="pipe-sb-content" id="pipe-sb-content"></div>
+        </div>
+    </aside>
 
     <script src="script.js"></script>
 </body>
