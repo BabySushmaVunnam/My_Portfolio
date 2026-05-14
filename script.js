@@ -10,6 +10,9 @@
     const PARTICLE_COUNT = 65;
     const CONNECT_DIST   = 150;
     const PULSE_EVERY    = 1600;
+    const REPEL_R        = 140;
+    let mX = -9999, mY = -9999;
+    window.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; }, { passive: true });
     const DROP_WORDS = [
         'SELECT','JOIN','SPARK','KAFKA','ETL','DELTA',
         'STREAM','0x3F','1101','dbt','BATCH','AWS',
@@ -46,11 +49,11 @@
         ctx.clearRect(0, 0, W, H);
 
         const dark    = isDark();
-        const node    = dark ? '155,109,255' : '120,70,220';
-        const line    = dark ? '155,109,255' : '120,70,220';
-        const pulse1  = dark ? '155,109,255' : '120,70,220';
-        const pulse2  = dark ? '45,212,191'  : '13,148,136';
-        const dropClr = dark ? '155,109,255' : '120,70,220';
+        const node    = dark ? '139,92,246'  : '109,40,217';
+        const line    = dark ? '139,92,246'  : '109,40,217';
+        const pulse1  = dark ? '139,92,246'  : '109,40,217';
+        const pulse2  = dark ? '236,72,153'  : '190,24,93';
+        const dropClr = dark ? '167,139,250' : '124,58,237';
 
         // Floating data words
         for (const d of dataDrops) {
@@ -62,8 +65,19 @@
             ctx.fillText(d.word, d.x, d.y);
         }
 
-        // Move particles
+        // Move particles — mouse repulsion creates a parting-sea effect
         for (const p of particles) {
+            const rdx = p.x - mX, rdy = p.y - mY;
+            const rd2 = rdx * rdx + rdy * rdy;
+            if (rd2 < REPEL_R * REPEL_R && rd2 > 1) {
+                const rd = Math.sqrt(rd2);
+                const f  = (REPEL_R - rd) / REPEL_R * 0.55;
+                p.vx += (rdx / rd) * f;
+                p.vy += (rdy / rd) * f;
+            }
+            p.vx *= 0.96; p.vy *= 0.96;
+            const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+            if (spd > 2.2) { p.vx = p.vx / spd * 2.2; p.vy = p.vy / spd * 2.2; }
             p.x += p.vx; p.y += p.vy;
             if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
             if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
@@ -152,11 +166,11 @@
     let animationId = null;
 
     const NODES = [
-        { id: 'about', label: 'About', x: 0.5, y: 0.2, color: '#9B6DFF' },
-        { id: 'education', label: 'Education', x: 0.15, y: 0.65, color: '#2DD4BF' },
-        { id: 'experience', label: 'Experience', x: 0.5, y: 0.75, color: '#9B6DFF' },
-        { id: 'projects', label: 'Projects', x: 0.85, y: 0.65, color: '#2DD4BF' },
-        { id: 'certifications', label: 'Certifications', x: 0.5, y: 0.5, color: '#9B6DFF' },
+        { id: 'about', label: 'About', x: 0.5, y: 0.2, color: '#8B5CF6' },
+        { id: 'education', label: 'Education', x: 0.15, y: 0.65, color: '#EC4899' },
+        { id: 'experience', label: 'Experience', x: 0.5, y: 0.75, color: '#8B5CF6' },
+        { id: 'projects', label: 'Projects', x: 0.85, y: 0.65, color: '#EC4899' },
+        { id: 'certifications', label: 'Certifications', x: 0.5, y: 0.5, color: '#A78BFA' },
     ];
 
     const CONNECTIONS = [
@@ -205,7 +219,7 @@
         const dark = isDark();
         ctx.clearRect(0, 0, W, H);
         
-        const lineColor = dark ? 'rgba(155,109,255,0.25)' : 'rgba(120,70,220,0.2)';
+        const lineColor = dark ? 'rgba(139,92,246,0.25)' : 'rgba(109,40,217,0.2)';
         const nodeRadius = Math.min(W, H) * 0.055;
 
         const nodePos = {};
@@ -437,8 +451,8 @@ let pipelineRAFs = [];
 function animatePipeDot(path) {
     const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     dot.setAttribute('r', '4');
-    dot.setAttribute('fill', '#2DD4BF');
-    dot.style.filter = 'drop-shadow(0 0 5px #2DD4BF) drop-shadow(0 0 2px #fff)';
+    dot.setAttribute('fill', '#EC4899');
+    dot.style.filter = 'drop-shadow(0 0 5px #EC4899) drop-shadow(0 0 2px #fff)';
     dot.setAttribute('opacity', '0');
     pipelineSvg.appendChild(dot);
     const dur = 1900 + Math.random() * 900;
@@ -468,7 +482,7 @@ function drawPipelineEdges() {
 
     const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
     defs.innerHTML = `<marker id="pipe-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-        <polygon points="0 0,8 3,0 6" fill="rgba(234,179,8,0.8)"/>
+        <polygon points="0 0,8 3,0 6" fill="rgba(139,92,246,0.8)"/>
     </marker>`;
     pipelineSvg.appendChild(defs);
 
@@ -487,7 +501,7 @@ function drawPipelineEdges() {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('d', `M${sx},${sy} C${cx},${sy} ${cx},${ey} ${ex},${ey}`);
         path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', 'rgba(234,179,8,0.4)');
+        path.setAttribute('stroke', 'rgba(139,92,246,0.4)');
         path.setAttribute('stroke-width', '1.5');
         path.setAttribute('stroke-dasharray', '6 4');
         path.setAttribute('marker-end', 'url(#pipe-arrow)');
@@ -580,10 +594,300 @@ window.addEventListener('scroll', () => {
 // ═══════════════════════════════════════════════
 // 13. INIT
 // ═══════════════════════════════════════════════
-// ═══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(() => requestAnimationFrame(drawPipelineEdges));
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
     const skillBars = document.querySelector('.skill-bars');
     if (skillBars) barObs.observe(skillBars);
 });
+
+
+// ═══════════════════════════════════════════════
+// 14. SCROLL PROGRESS BAR
+// ═══════════════════════════════════════════════
+(function initScrollBar() {
+    const bar = document.getElementById('scroll-bar');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+        const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        bar.style.transform = `scaleX(${Math.min(pct, 1)})`;
+    }, { passive: true });
+})();
+
+
+// ═══════════════════════════════════════════════
+// 15. HERO TYPING / CYCLING TEXT
+// ═══════════════════════════════════════════════
+(function initTyped() {
+    const el = document.getElementById('typed-text');
+    if (!el) return;
+
+    const phrases = [
+        'Spark & Kafka at enterprise scale',
+        '500M+ records flowing daily',
+        'Delta Lake  ·  dbt  ·  AWS Bedrock',
+        'Bronze → Silver → Gold lakehouse',
+        'RAG pipelines with sub-100ms retrieval',
+        'Open to Data Engineer roles in the US',
+    ];
+
+    let pi = 0, ci = 0, deleting = false, pause = 0;
+
+    function tick() {
+        const phrase = phrases[pi];
+        if (pause > 0) { pause--; setTimeout(tick, 60); return; }
+
+        if (!deleting) {
+            el.textContent = phrase.slice(0, ++ci);
+            if (ci === phrase.length) { deleting = true; pause = 48; }
+            setTimeout(tick, 68 + Math.random() * 38);
+        } else {
+            el.textContent = phrase.slice(0, --ci);
+            if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; pause = 6; }
+            setTimeout(tick, 32);
+        }
+    }
+
+    setTimeout(tick, 1300);
+})();
+
+
+// ═══════════════════════════════════════════════
+// 16. EXPERIENCE TIMELINE DRAW ANIMATION
+// ═══════════════════════════════════════════════
+(function initTimelineDraw() {
+    const tl = document.querySelector('.timeline');
+    if (!tl) return;
+    const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            tl.classList.add('tl-drawn');
+            obs.disconnect();
+        }
+    }, { threshold: 0.1 });
+    obs.observe(tl);
+})();
+
+
+// ═══════════════════════════════════════════════
+// 17. AURORA BLOBS — inject into hero
+// ═══════════════════════════════════════════════
+(function initAurora() {
+    const hero = document.querySelector('.s-hero');
+    if (!hero) return;
+    [1, 2, 3].forEach(n => {
+        const blob = document.createElement('div');
+        blob.className = `aurora-blob aurora-blob-${n}`;
+        hero.insertBefore(blob, hero.firstChild);
+    });
+})();
+
+
+// ═══════════════════════════════════════════════
+// 15. CUSTOM SPRING CURSOR (desktop only)
+// ═══════════════════════════════════════════════
+(function initCustomCursor() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const dot  = document.createElement('div');  dot.className  = 'cursor-dot';
+    const ring = document.createElement('div');  ring.className = 'cursor-ring';
+    document.body.append(dot, ring);
+    document.body.classList.add('hide-cursor');
+
+    let mx = innerWidth / 2,  my = innerHeight / 2;
+    let rx = mx, ry = my;
+    let targetScale = 1, currentScale = 1;
+    let visible = false;
+
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        if (!visible) {
+            visible = true;
+            dot.classList.add('active');
+            ring.classList.add('active');
+        }
+    });
+    document.addEventListener('mouseleave',  () => { dot.classList.remove('active'); ring.classList.remove('active'); });
+    document.addEventListener('mouseenter',  () => { if (visible) { dot.classList.add('active'); ring.classList.add('active'); } });
+
+    const hoverSels = 'a, button, .btn, .pipe-node, .proj-card, .skill-logo, .contact-link, .cert-card, .tl-item';
+    document.querySelectorAll(hoverSels).forEach(el => {
+        el.addEventListener('mouseenter', () => { targetScale = 2.2; ring.classList.add('on-hover'); dot.classList.add('on-hover'); });
+        el.addEventListener('mouseleave', () => { targetScale = 1;   ring.classList.remove('on-hover'); dot.classList.remove('on-hover'); });
+    });
+
+    (function tick() {
+        dot.style.transform  = `translate(${mx}px, ${my}px)`;
+        rx += (mx - rx) * 0.11;
+        ry += (my - ry) * 0.11;
+        currentScale += (targetScale - currentScale) * 0.10;
+        ring.style.transform = `translate(${rx}px, ${ry}px) scale(${currentScale.toFixed(3)})`;
+        requestAnimationFrame(tick);
+    })();
+})();
+
+
+// ═══════════════════════════════════════════════
+// 16. MAGNETIC BUTTONS
+// ═══════════════════════════════════════════════
+(function initMagnetic() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    document.querySelectorAll('.btn').forEach(btn => {
+        let tx = 0, ty = 0, rafId = null;
+
+        btn.addEventListener('mousemove', e => {
+            const r  = btn.getBoundingClientRect();
+            tx = (e.clientX - (r.left + r.width  / 2)) * 0.34;
+            ty = (e.clientY - (r.top  + r.height / 2)) * 0.34;
+            btn.style.translate = `${tx}px ${ty}px`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            function spring() {
+                tx *= 0.72; ty *= 0.72;
+                btn.style.translate = `${tx}px ${ty}px`;
+                if (Math.abs(tx) > 0.05 || Math.abs(ty) > 0.05) {
+                    rafId = requestAnimationFrame(spring);
+                } else {
+                    btn.style.translate = '';
+                    rafId = null;
+                }
+            }
+            rafId = requestAnimationFrame(spring);
+        });
+    });
+})();
+
+
+// ═══════════════════════════════════════════════
+// 17. CARD SPOTLIGHT GLOW
+// ═══════════════════════════════════════════════
+(function initSpotlight() {
+    document.querySelectorAll('.proj-card, .cert-card, .impact-stat').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--spot-x', `${e.clientX - r.left}px`);
+            card.style.setProperty('--spot-y', `${e.clientY - r.top}px`);
+        });
+    });
+})();
+
+
+// ═══════════════════════════════════════════════
+// 18. HERO KICKER TEXT SCRAMBLE
+// ═══════════════════════════════════════════════
+(function initScramble() {
+    const el = document.querySelector('.hero-kicker');
+    if (!el) return;
+    const original = el.textContent.trim();
+    const chars    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·◈⚡#@%';
+    let frame = 0, iid = null;
+
+    function scramble() {
+        clearInterval(iid);
+        frame = 0;
+        iid = setInterval(() => {
+            el.textContent = original.split('').map((ch, i) => {
+                if (ch === ' ') return ' ';
+                if (i < frame)  return ch;
+                return chars[Math.floor(Math.random() * chars.length)];
+            }).join('');
+            if (Math.random() > 0.52) frame++;
+            if (frame >= original.length) { clearInterval(iid); el.textContent = original; }
+        }, 38);
+    }
+
+    setTimeout(scramble, 750);
+    el.addEventListener('mouseenter', scramble);
+})();
+
+
+// ═══════════════════════════════════════════════
+// 21. TERMINAL CARD HEADERS
+// ═══════════════════════════════════════════════
+(function initTerminalHeaders() {
+    const filenames = [
+        'enterprise_pipeline.py',
+        'genai_chatbot.py',
+        'kafka_milvus_rag.py',
+        'cloud_lakehouse.sql',
+    ];
+    document.querySelectorAll('.proj-card').forEach((card, i) => {
+        const bar = document.createElement('div');
+        bar.className = 'terminal-bar';
+        bar.innerHTML = `
+            <span class="terminal-dot t-dot-red"></span>
+            <span class="terminal-dot t-dot-yellow"></span>
+            <span class="terminal-dot t-dot-green"></span>
+            <span class="terminal-filename">${filenames[i] || 'project.py'}</span>`;
+        card.prepend(bar);
+    });
+})();
+
+
+// ═══════════════════════════════════════════════
+// 22. MOTION (FRAMER) — CDN ENHANCEMENTS
+//     Loaded from cdn.jsdelivr.net/npm/motion@11
+// ═══════════════════════════════════════════════
+(function initMotionAnimations() {
+    if (typeof window.Motion === 'undefined') return;
+    const { animate, inView, stagger } = window.Motion;
+
+    // Skill logos — spring overshoot stagger
+    inView('.skill-logo-grid', () => {
+        const logos = document.querySelectorAll('.skill-logo');
+        logos.forEach(l => { l.style.opacity = '0'; });
+        animate(logos,
+            { opacity: [0, 1], scale: [0.65, 1], y: [22, 0] },
+            { delay: stagger(0.04), duration: 0.5, easing: [0.34, 1.56, 0.64, 1] }
+        );
+    }, { amount: 0.2 });
+
+    // Pipeline nodes — spring stagger
+    inView('.pipeline-nodes', () => {
+        animate(document.querySelectorAll('.pipe-node'),
+            { opacity: [0, 1], scale: [0.82, 1], y: [28, 0] },
+            { delay: stagger(0.10), duration: 0.62, easing: [0.34, 1.56, 0.64, 1] }
+        );
+    }, { amount: 0.3 });
+
+    // Project cards — blur + lift entrance
+    inView('.projects-grid', () => {
+        animate(document.querySelectorAll('.proj-card'),
+            { opacity: [0, 1], y: [40, 0], filter: ['blur(6px)', 'blur(0px)'] },
+            { delay: stagger(0.12), duration: 0.65, easing: [0.16, 1, 0.3, 1] }
+        );
+    }, { amount: 0.15 });
+
+    // Experience tl-items — slide in from left
+    inView('.timeline', () => {
+        animate(document.querySelectorAll('.tl-item'),
+            { opacity: [0, 1], x: [-32, 0] },
+            { delay: stagger(0.15), duration: 0.7, easing: [0.16, 1, 0.3, 1] }
+        );
+    }, { amount: 0.1 });
+
+    // Contact links — spring stagger
+    inView('.contact-links', () => {
+        animate(document.querySelectorAll('.contact-link'),
+            { opacity: [0, 1], y: [28, 0], scale: [0.9, 1] },
+            { delay: stagger(0.08), duration: 0.55, easing: [0.34, 1.56, 0.64, 1] }
+        );
+    }, { amount: 0.4 });
+
+    // Section eyebrows — fast slide up
+    document.querySelectorAll('.t-eyebrow').forEach(el => {
+        inView(el, () => {
+            animate(el, { opacity: [0, 1], y: [14, 0] }, { duration: 0.45, easing: [0.16, 1, 0.3, 1] });
+        }, { amount: 0.8 });
+    });
+
+    // Cert cards
+    inView('.certs-grid', () => {
+        animate(document.querySelectorAll('.cert-card'),
+            { opacity: [0, 1], scale: [0.88, 1], y: [20, 0] },
+            { delay: stagger(0.1), duration: 0.5, easing: [0.34, 1.56, 0.64, 1] }
+        );
+    }, { amount: 0.3 });
+})();
