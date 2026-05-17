@@ -22,3 +22,4 @@ Daily log for Sushma Vunnam — Data Engineer
 - **2026-05-14** (Thursday, Week 20) — Portfolio active | Data Engineering & AI
 - **2026-05-15** (Friday, Week 20) — Portfolio active | Data Engineering & AI
 - **2026-05-16** (Saturday, Week 20) — Portfolio active | Data Engineering & AI
+- **2026-05-17** (Sunday, Week 20) — Portfolio active | Data Engineering & AI
