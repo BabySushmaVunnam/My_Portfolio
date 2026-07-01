@@ -221,15 +221,15 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 35%;
-    /* Slight hue-rotate pushes any warm/pink tones toward green */
-    filter: brightness(0.78) contrast(1.06) saturate(1.25) hue-rotate(-15deg);
+    object-position: center 45%;
+    /* Moody mountain lake — deep greens, dramatic contrast, cool tone */
+    filter: brightness(0.72) contrast(1.12) saturate(1.35) hue-rotate(-10deg);
     display: block;
     will-change: transform;
 }
 
 [data-theme="light"] .j-frame img {
-    filter: brightness(0.95) contrast(1.04) saturate(1.30) hue-rotate(-12deg);
+    filter: brightness(0.90) contrast(1.08) saturate(1.25) hue-rotate(-8deg);
 }
 
 /* ─── Lightning flash ─────────────────────────── */
@@ -264,35 +264,35 @@ body {
     z-index: 3;
 }
 .j-mist-1 {
-    bottom: 30%;
-    height: 22%;
+    bottom: 28%;
+    height: 26%;
     background: linear-gradient(90deg,
-        transparent 0%, rgba(200,240,220,0.18) 22%,
-        rgba(218,248,232,0.26) 52%, rgba(200,240,220,0.18) 80%, transparent 100%
+        transparent 0%, rgba(210,235,220,0.28) 22%,
+        rgba(225,245,232,0.38) 52%, rgba(210,235,220,0.28) 80%, transparent 100%
     );
-    filter: blur(34px);
+    filter: blur(40px);
     animation: mist-drift-1 18s ease-in-out infinite alternate;
 }
 .j-mist-2 {
-    bottom: 14%;
-    height: 16%;
+    bottom: 10%;
+    height: 20%;
     background: linear-gradient(90deg,
-        transparent 0%, rgba(205,242,224,0.13) 28%,
-        rgba(222,250,234,0.19) 56%, rgba(205,242,224,0.11) 80%, transparent 100%
+        transparent 0%, rgba(210,235,220,0.22) 28%,
+        rgba(228,248,236,0.30) 56%, rgba(210,235,220,0.20) 80%, transparent 100%
     );
-    filter: blur(44px);
-    opacity: 0.70;
+    filter: blur(48px);
+    opacity: 0.85;
     animation: mist-drift-2 22s ease-in-out infinite alternate-reverse;
 }
 .j-mist-3 {
-    top: 12%;
-    height: 14%;
+    top: 8%;
+    height: 22%;
     background: linear-gradient(90deg,
-        transparent 0%, rgba(190,228,210,0.09) 32%,
-        rgba(210,240,222,0.13) 60%, transparent 100%
+        transparent 0%, rgba(200,225,215,0.20) 28%,
+        rgba(218,240,228,0.28) 56%, rgba(200,225,215,0.18) 82%, transparent 100%
     );
-    filter: blur(52px);
-    opacity: 0.55;
+    filter: blur(56px);
+    opacity: 0.75;
     animation: mist-drift-1 28s ease-in-out infinite alternate;
 }
 @keyframes mist-drift-1 {
