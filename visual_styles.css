@@ -222,14 +222,14 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center 35%;
-    /* Natural look — let the photo speak, minimal adjustment */
-    filter: brightness(0.76) contrast(1.08) saturate(1.12);
+    /* Slight hue-rotate pushes any warm/pink tones toward green */
+    filter: brightness(0.78) contrast(1.06) saturate(1.25) hue-rotate(-15deg);
     display: block;
     will-change: transform;
 }
 
 [data-theme="light"] .j-frame img {
-    filter: brightness(0.96) contrast(1.06) saturate(1.15);
+    filter: brightness(0.95) contrast(1.04) saturate(1.30) hue-rotate(-12deg);
 }
 
 /* ─── Lightning flash ─────────────────────────── */
@@ -321,17 +321,17 @@ body {
     100% { transform: translateX(-4%); }
 }
 
-/* ─── Overlay — dark theme (light veil so photo shows through) ── */
+/* ─── Overlay — green-tinted veil so background stays clearly green ── */
 .j-overlay {
     position: absolute;
     inset: 0;
     z-index: 2;
     background: linear-gradient(180deg,
-        rgba(0, 0, 0, 0.38) 0%,
-        rgba(0, 0, 0, 0.18) 20%,
-        rgba(0, 0, 0, 0.12) 50%,
-        rgba(0, 0, 0, 0.18) 80%,
-        rgba(0, 0, 0, 0.35) 100%
+        rgba(4, 20, 8, 0.42)  0%,
+        rgba(4, 20, 8, 0.18)  20%,
+        rgba(4, 20, 8, 0.10)  50%,
+        rgba(4, 20, 8, 0.18)  80%,
+        rgba(4, 20, 8, 0.40)  100%
     );
     pointer-events: none;
 }
