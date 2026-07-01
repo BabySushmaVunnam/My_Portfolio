@@ -221,15 +221,15 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 45%;
-    /* Moody mountain lake — deep greens, dramatic contrast, cool tone */
-    filter: brightness(0.72) contrast(1.12) saturate(1.35) hue-rotate(-10deg);
+    object-position: center 50%;
+    /* Muted — background is atmosphere, not the hero */
+    filter: brightness(0.55) contrast(1.05) saturate(0.80);
     display: block;
     will-change: transform;
 }
 
 [data-theme="light"] .j-frame img {
-    filter: brightness(0.90) contrast(1.08) saturate(1.25) hue-rotate(-8deg);
+    filter: brightness(0.75) contrast(1.04) saturate(0.85);
 }
 
 /* ─── Lightning flash ─────────────────────────── */
@@ -321,19 +321,29 @@ body {
     100% { transform: translateX(-4%); }
 }
 
-/* ─── Overlay — green-tinted veil so background stays clearly green ── */
+/* ─── Overlay — heavier veil so content pops over background ── */
 .j-overlay {
     position: absolute;
     inset: 0;
     z-index: 2;
     background: linear-gradient(180deg,
-        rgba(4, 20, 8, 0.42)  0%,
-        rgba(4, 20, 8, 0.18)  20%,
-        rgba(4, 20, 8, 0.10)  50%,
-        rgba(4, 20, 8, 0.18)  80%,
-        rgba(4, 20, 8, 0.40)  100%
+        rgba(3, 14, 6, 0.68)  0%,
+        rgba(3, 14, 6, 0.50)  25%,
+        rgba(3, 14, 6, 0.42)  50%,
+        rgba(3, 14, 6, 0.52)  75%,
+        rgba(3, 14, 6, 0.70)  100%
     );
     pointer-events: none;
+}
+
+[data-theme="light"] .j-overlay {
+    background: linear-gradient(180deg,
+        rgba(230, 252, 238, 0.72) 0%,
+        rgba(230, 252, 238, 0.55) 25%,
+        rgba(230, 252, 238, 0.45) 50%,
+        rgba(230, 252, 238, 0.55) 75%,
+        rgba(230, 252, 238, 0.70) 100%
+    );
 }
 
 /* ─── Overlay — light theme (airy, bright but readable) ── */
