@@ -49,11 +49,11 @@
         ctx.clearRect(0, 0, W, H);
 
         const dark    = isDark();
-        const node    = dark ? '139,92,246'  : '109,40,217';
-        const line    = dark ? '139,92,246'  : '109,40,217';
-        const pulse1  = dark ? '139,92,246'  : '109,40,217';
-        const pulse2  = dark ? '236,72,153'  : '190,24,93';
-        const dropClr = dark ? '167,139,250' : '124,58,237';
+        const node    = dark ? '57,201,108'  : '42,143,83';
+        const line    = dark ? '57,201,108'  : '42,143,83';
+        const pulse1  = dark ? '57,201,108'  : '42,143,83';
+        const pulse2  = dark ? '109,218,106'  : '77,184,107';
+        const dropClr = dark ? '127,220,139' : '42,143,83';
 
         // Floating data words
         for (const d of dataDrops) {
@@ -151,7 +151,28 @@
     requestAnimationFrame(draw);
 })();
 
+(function initTilt() {
+    const items = document.querySelectorAll('[data-tilt]');
+    if (!items.length) return;
 
+    items.forEach((item) => {
+        item.addEventListener('pointermove', (event) => {
+            const rect = item.getBoundingClientRect();
+            const px = (event.clientX - rect.left) / rect.width;
+            const py = (event.clientY - rect.top) / rect.height;
+            const rotateY = (px - 0.5) * 9;
+            const rotateX = (0.5 - py) * 9;
+            const shiftX = (px - 0.5) * 8;
+            const shiftY = (py - 0.5) * 8;
+
+            item.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(${shiftX}px, ${shiftY}px, 0)`;
+        });
+
+        item.addEventListener('pointerleave', () => {
+            item.style.transform = '';
+        });
+    });
+})();
 
 // ═══════════════════════════════════════════════
 // 1. PORTFOLIO STRUCTURE DAG VISUALIZATION
@@ -166,11 +187,11 @@
     let animationId = null;
 
     const NODES = [
-        { id: 'about', label: 'About', x: 0.5, y: 0.2, color: '#8B5CF6' },
-        { id: 'education', label: 'Education', x: 0.15, y: 0.65, color: '#EC4899' },
-        { id: 'experience', label: 'Experience', x: 0.5, y: 0.75, color: '#8B5CF6' },
-        { id: 'projects', label: 'Projects', x: 0.85, y: 0.65, color: '#EC4899' },
-        { id: 'certifications', label: 'Certifications', x: 0.5, y: 0.5, color: '#A78BFA' },
+        { id: 'about', label: 'About', x: 0.5, y: 0.2, color: '#39c96c' },
+        { id: 'education', label: 'Education', x: 0.15, y: 0.65, color: '#4db86b' },
+        { id: 'experience', label: 'Experience', x: 0.5, y: 0.75, color: '#39c96c' },
+        { id: 'projects', label: 'Projects', x: 0.85, y: 0.65, color: '#4db86b' },
+        { id: 'certifications', label: 'Certifications', x: 0.5, y: 0.5, color: '#7fdc8b' },
     ];
 
     const CONNECTIONS = [
@@ -219,7 +240,7 @@
         const dark = isDark();
         ctx.clearRect(0, 0, W, H);
         
-        const lineColor = dark ? 'rgba(139,92,246,0.25)' : 'rgba(109,40,217,0.2)';
+        const lineColor = dark ? 'rgba(57,201,108,0.25)' : 'rgba(42,143,83,0.2)';
         const nodeRadius = Math.min(W, H) * 0.055;
 
         const nodePos = {};
@@ -424,15 +445,17 @@ if (photo3d) {
 // ═══════════════════════════════════════════════
 // 10. SPARKLES
 // ═══════════════════════════════════════════════
-const sparks = ['✦','✧','⋆','★','✸'];
+// Green nature sparkles (leaf / drop shapes)
+const sparks = ['·','∙','◦','○','◌'];
 document.addEventListener('mousemove', e => {
-    if (Math.random() > 0.05) return;
+    if (Math.random() > 0.04) return;
     const s = document.createElement('div');
-    s.className   = 'sparkle';
+    s.className = 'sparkle';
     s.textContent = sparks[0|Math.random()*sparks.length];
-    s.style.cssText = `left:${e.clientX + (Math.random()-0.5)*22}px;top:${e.clientY + (Math.random()-0.5)*22}px;font-size:${Math.random()*7+8}px;color:hsl(${Math.random()>0.5?265:180},80%,70%)`;
+    const hue = 110 + Math.random() * 60; // 110–170 = yellow-green to cyan-green
+    s.style.cssText = `left:${e.clientX + (Math.random()-0.5)*18}px;top:${e.clientY + (Math.random()-0.5)*18}px;font-size:${Math.random()*6+6}px;color:hsl(${hue},80%,68%)`;
     document.body.appendChild(s);
-    setTimeout(() => s.remove(), 800);
+    setTimeout(() => s.remove(), 700);
 });
 
 
@@ -451,8 +474,8 @@ let pipelineRAFs = [];
 function animatePipeDot(path) {
     const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     dot.setAttribute('r', '4');
-    dot.setAttribute('fill', '#EC4899');
-    dot.style.filter = 'drop-shadow(0 0 5px #EC4899) drop-shadow(0 0 2px #fff)';
+    dot.setAttribute('fill', '#4db86b');
+    dot.style.filter = 'drop-shadow(0 0 5px #4db86b) drop-shadow(0 0 2px #fff)';
     dot.setAttribute('opacity', '0');
     pipelineSvg.appendChild(dot);
     const dur = 1900 + Math.random() * 900;
@@ -482,7 +505,7 @@ function drawPipelineEdges() {
 
     const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
     defs.innerHTML = `<marker id="pipe-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-        <polygon points="0 0,8 3,0 6" fill="rgba(139,92,246,0.8)"/>
+        <polygon points="0 0,8 3,0 6" fill="rgba(57,201,108,0.8)"/>
     </marker>`;
     pipelineSvg.appendChild(defs);
 
@@ -501,7 +524,7 @@ function drawPipelineEdges() {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('d', `M${sx},${sy} C${cx},${sy} ${cx},${ey} ${ex},${ey}`);
         path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', 'rgba(139,92,246,0.4)');
+        path.setAttribute('stroke', 'rgba(57,201,108,0.4)');
         path.setAttribute('stroke-width', '1.5');
         path.setAttribute('stroke-dasharray', '6 4');
         path.setAttribute('marker-end', 'url(#pipe-arrow)');
@@ -683,44 +706,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // ═══════════════════════════════════════════════
-// 15. CUSTOM SPRING CURSOR (desktop only)
+// 15. NATURE WATER-RIPPLE CURSOR (desktop only)
 // ═══════════════════════════════════════════════
-(function initCustomCursor() {
+(function initNatureCursor() {
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
-    const dot  = document.createElement('div');  dot.className  = 'cursor-dot';
-    const ring = document.createElement('div');  ring.className = 'cursor-ring';
-    document.body.append(dot, ring);
+    // Glowing raindrop orb that tracks the cursor
+    const orb = document.createElement('div');
+    orb.className = 'cursor-orb';
+    document.body.appendChild(orb);
     document.body.classList.add('hide-cursor');
 
-    let mx = innerWidth / 2,  my = innerHeight / 2;
-    let rx = mx, ry = my;
-    let targetScale = 1, currentScale = 1;
+    let mx = innerWidth / 2, my = innerHeight / 2;
+    let lx = mx, ly = my;
     let visible = false;
+    let onHover = false;
 
     document.addEventListener('mousemove', e => {
         mx = e.clientX; my = e.clientY;
-        if (!visible) {
-            visible = true;
-            dot.classList.add('active');
-            ring.classList.add('active');
-        }
+        if (!visible) { visible = true; orb.classList.add('active'); }
     });
-    document.addEventListener('mouseleave',  () => { dot.classList.remove('active'); ring.classList.remove('active'); });
-    document.addEventListener('mouseenter',  () => { if (visible) { dot.classList.add('active'); ring.classList.add('active'); } });
+    document.addEventListener('mouseleave', () => orb.classList.remove('active'));
+    document.addEventListener('mouseenter', () => { if (visible) orb.classList.add('active'); });
 
-    const hoverSels = 'a, button, .btn, .pipe-node, .proj-card, .skill-logo, .contact-link, .cert-card, .tl-item';
+    // Click: spawn expanding water ripples at the click point
+    document.addEventListener('click', e => {
+        [0, 100, 220].forEach(delay => {
+            setTimeout(() => {
+                const r = document.createElement('div');
+                r.className = 'cursor-ripple';
+                r.style.cssText = `left:${e.clientX}px;top:${e.clientY}px`;
+                document.body.appendChild(r);
+                setTimeout(() => r.remove(), 900);
+            }, delay);
+        });
+    });
+
+    // Hover state — orb brightens + expands
+    const hoverSels = 'a, button, .btn, .pipe-node, .proj-card, .skill-logo, .contact-link, .cert-card, .tl-item, .nav-link';
     document.querySelectorAll(hoverSels).forEach(el => {
-        el.addEventListener('mouseenter', () => { targetScale = 2.2; ring.classList.add('on-hover'); dot.classList.add('on-hover'); });
-        el.addEventListener('mouseleave', () => { targetScale = 1;   ring.classList.remove('on-hover'); dot.classList.remove('on-hover'); });
+        el.addEventListener('mouseenter', () => { onHover = true;  orb.classList.add('on-hover'); });
+        el.addEventListener('mouseleave', () => { onHover = false; orb.classList.remove('on-hover'); });
     });
 
+    // Smooth follow with slight lag (spring feel)
     (function tick() {
-        dot.style.transform  = `translate(${mx}px, ${my}px)`;
-        rx += (mx - rx) * 0.11;
-        ry += (my - ry) * 0.11;
-        currentScale += (targetScale - currentScale) * 0.10;
-        ring.style.transform = `translate(${rx}px, ${ry}px) scale(${currentScale.toFixed(3)})`;
+        lx += (mx - lx) * 0.14;
+        ly += (my - ly) * 0.14;
+        orb.style.transform = `translate(${lx}px, ${ly}px)`;
         requestAnimationFrame(tick);
     })();
 })();
@@ -891,3 +924,139 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }, { amount: 0.3 });
 })();
+
+
+// ═══════════════════════════════════════════════
+// JOURNEY BACKGROUND — single frame parallax pan
+// ═══════════════════════════════════════════════
+(function initJourney() {
+    const frame = document.querySelector('.j-frame');
+    if (!frame) return;
+
+    function onScroll() {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (maxScroll <= 0) return;
+        const pct = window.scrollY / maxScroll;
+
+        // Pan image upward as you scroll — the one continuous frame travels with you
+        // inset is -18% top/bottom, so we have 36% travel room; use 28% of it
+        frame.style.transform = `translateY(${pct * -28}%)`;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+})();
+
+
+// ═══════════════════════════════════════════════
+// RAIN CANVAS — animated rain drops
+// ═══════════════════════════════════════════════
+(function initRain() {
+    const canvas = document.getElementById('rain-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let W, H, drops = [];
+    const DROP_COUNT = 320;
+
+    function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+
+    function mkDrop() {
+        return {
+            x:     Math.random() * W,
+            y:     Math.random() * H * -1,
+            len:   12 + Math.random() * 22,
+            speed: 10 + Math.random() * 14,
+            op:    0.12 + Math.random() * 0.28,
+            angle: 0.16 + Math.random() * 0.08, // wind-blown diagonal
+        };
+    }
+
+    function init() { resize(); drops = Array.from({length: DROP_COUNT}, mkDrop); }
+
+    function draw() {
+        requestAnimationFrame(draw);
+        ctx.clearRect(0, 0, W, H);
+
+        for (const d of drops) {
+            const dx = Math.sin(d.angle) * d.len;
+            const dy = Math.cos(d.angle) * d.len;
+
+            // Gradient streak — bright core, fade at ends (real rain look)
+            const grad = ctx.createLinearGradient(d.x, d.y, d.x + dx, d.y + dy);
+            grad.addColorStop(0,   `rgba(220, 245, 235, 0)`);
+            grad.addColorStop(0.4, `rgba(220, 245, 235, ${d.op})`);
+            grad.addColorStop(1,   `rgba(255, 255, 255, ${d.op * 0.5})`);
+
+            ctx.beginPath();
+            ctx.moveTo(d.x, d.y);
+            ctx.lineTo(d.x + dx, d.y + dy);
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 0.9;
+            ctx.stroke();
+
+            // Ripple at bottom (ground impact)
+            if (d.y > H * 0.85 && d.y < H * 0.88) {
+                ctx.beginPath();
+                ctx.ellipse(d.x + dx, d.y + dy, 3, 1, 0, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(150, 210, 180, ${d.op * 0.5})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+            }
+
+            d.x += Math.sin(d.angle) * d.speed;
+            d.y += Math.cos(d.angle) * d.speed;
+
+            if (d.y > H + 20 || d.x > W + 20) {
+                d.x = Math.random() * W;
+                d.y = -20;
+            }
+        }
+    }
+
+    window.addEventListener('resize', init, { passive: true });
+    init();
+    requestAnimationFrame(draw);
+})();
+
+// ═══════════════════════════════════════════════
+// LIGHTNING — random light thunder flashes
+// ═══════════════════════════════════════════════
+(function initLightning() {
+    const el = document.getElementById('j-lightning');
+    if (!el) return;
+
+    function flash() {
+        // Random bolt position (left 20%-70% of screen, top 0%-30%)
+        const px = 20 + Math.random() * 50;
+        const py = Math.random() * 30;
+        const angle = -10 + Math.random() * 20;
+
+        el.style.background = `
+            radial-gradient(ellipse 70% 85% at ${px}% ${py}%,
+                rgba(215, 245, 255, 0.70) 0%,
+                rgba(170, 220, 255, 0.35) 30%,
+                transparent 65%),
+            linear-gradient(${angle}deg,
+                transparent 30%,
+                rgba(200, 235, 255, 0.18) 50%,
+                transparent 70%)
+        `;
+
+        // Double-flash: bright → dim → bright → gone
+        el.style.opacity = '1';
+        setTimeout(() => { el.style.opacity = '0'; },   55);
+        setTimeout(() => { el.style.opacity = '0.60'; }, 120);
+        setTimeout(() => { el.style.opacity = '0'; },   185);
+
+        // Schedule next strike (12–35 seconds apart)
+        setTimeout(flash, 12000 + Math.random() * 23000);
+    }
+
+    // First strike after 4–10 seconds
+    setTimeout(flash, 4000 + Math.random() * 6000);
+})();
+

@@ -1,0 +1,402 @@
+:root {
+    --glow:  rgba(57, 201, 108, 0.28);
+    --glow-2: rgba(109, 218, 106, 0.18);
+    --panel: rgba(255, 255, 255, 0.07);
+    --panel-strong: rgba(255, 255, 255, 0.11);
+}
+
+[data-theme="light"] {
+    --glow:  rgba(42, 143, 83, 0.22);
+    --glow-2: rgba(77, 184, 107, 0.16);
+    --panel: rgba(255, 255, 255, 0.72);
+    --panel-strong: rgba(255, 255, 255, 0.90);
+}
+
+/* ─── body ─────────────────────────────────────── */
+body {
+    background: #030d07;
+}
+
+#structure-view {
+    position: relative;
+    z-index: 2;
+}
+
+.section {
+    isolation: isolate;
+}
+
+/* ─── hero card — fully transparent, nature shows through ── */
+.hero-inner {
+    position: relative;
+    max-width: 980px;
+    padding: 3rem 3.25rem 3.5rem;
+    border-radius: 32px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    overflow: visible;
+    transform-style: preserve-3d;
+}
+
+.hero-inner::before {
+    content: '';
+    position: absolute;
+    inset: -40% 55% auto auto;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(57, 201, 108, 0.18), transparent 70%);
+    filter: blur(24px);
+    pointer-events: none;
+}
+
+.hero-inner::after {
+    content: '';
+    position: absolute;
+    inset: auto auto -35% -10%;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(109, 218, 106, 0.14), transparent 72%);
+    filter: blur(20px);
+    pointer-events: none;
+}
+
+.hero-kicker, .hero-tagline, .hero-typed, .hero-cta {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-name {
+    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+}
+.hero-name .line-1,
+.hero-name .line-2 {
+    display: block;
+    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.38);
+}
+
+/* ─── glass cards ────────────────────────────────── */
+.btn {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.20) 50%, transparent 100%);
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+}
+.btn:hover::before { transform: translateX(120%); }
+
+.navbar {
+    background: rgba(2, 12, 7, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(57, 201, 108, 0.14);
+}
+
+.pipe-node,
+.impact-stat,
+.skill-bar-item,
+.skill-logo,
+.proj-card,
+.cert-card,
+.about-photo-frame,
+.about-badge {
+    position: relative;
+    border: 1px solid rgba(57, 201, 108, 0.22);
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform-style: preserve-3d;
+}
+
+.pipe-node::before,
+.impact-stat::before,
+.skill-bar-item::before,
+.skill-logo::before,
+.proj-card::before,
+.cert-card::before,
+.about-photo-frame::before,
+.about-badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(57,201,108,0.08), transparent 55%);
+    pointer-events: none;
+}
+
+.pipe-node:hover,
+.impact-stat:hover,
+.skill-bar-item:hover,
+.skill-logo:hover,
+.proj-card:hover,
+.cert-card:hover,
+.about-photo-frame:hover,
+.about-badge:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(57, 201, 108, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+.about-photo-frame {
+    border-radius: 28px;
+    padding: 10px;
+}
+.about-photo-frame img {
+    border-radius: 20px;
+    transform: translateZ(14px);
+}
+.about-badge {
+    border-radius: 18px;
+    padding: 14px 16px;
+    margin-top: 16px;
+    font-size: 0.92rem;
+}
+.skill-bar-item { padding: 16px 18px; border-radius: 18px; }
+.skill-logo { border-radius: 16px; padding: 12px 14px; min-height: 74px; }
+.proj-card, .cert-card { border-radius: 24px; padding: 22px; }
+.impact-stat { border-radius: 24px; padding: 28px 22px; }
+.impact-num { text-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); }
+
+[data-tilt] {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+}
+
+/* ─── keyframes ──────────────────────────────────── */
+@keyframes drift {
+    from { transform: translate3d(-3%, -2%, 0) scale(1); }
+    to   { transform: translate3d(4%,  3%, 0) scale(1.06); }
+}
+@keyframes sweep {
+    0%   { transform: translateX(-110%); }
+    50%  { transform: translateX(110%); }
+    100% { transform: translateX(110%); }
+}
+
+/* ════════════════════════════════════════════════════
+   JOURNEY BACKGROUND — ONE continuous nature frame
+════════════════════════════════════════════════════ */
+
+.journey-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #0a1a0d;
+}
+
+/* ─── Subtle vignette frame — edges only, no color distortion ── */
+.journey-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    box-shadow:
+        inset 0   0   80px rgba(0, 0, 0, 0.38),
+        inset 0 -60px  80px rgba(5, 20, 8, 0.30);
+}
+
+/* ─── Single full-page nature frame ─────────────── */
+.j-frame {
+    position: absolute;
+    inset: -18% 0;
+    z-index: 1;
+    will-change: transform;
+}
+
+.j-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    /* Natural look — let the photo speak, minimal adjustment */
+    filter: brightness(0.76) contrast(1.08) saturate(1.12);
+    display: block;
+    will-change: transform;
+}
+
+[data-theme="light"] .j-frame img {
+    filter: brightness(0.96) contrast(1.06) saturate(1.15);
+}
+
+/* ─── Lightning flash ─────────────────────────── */
+.j-lightning {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    mix-blend-mode: screen;
+}
+
+
+
+/* ─── Rain canvas ─────────────────────────────────── */
+.j-rain-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0.90;
+}
+[data-theme="light"] .j-rain-canvas { opacity: 0.45; }
+
+/* ─── Mist layers ─────────────────────────────────── */
+.j-mist {
+    position: absolute;
+    left: -12%;
+    right: -12%;
+    pointer-events: none;
+    z-index: 3;
+}
+.j-mist-1 {
+    bottom: 30%;
+    height: 22%;
+    background: linear-gradient(90deg,
+        transparent 0%, rgba(200,240,220,0.18) 22%,
+        rgba(218,248,232,0.26) 52%, rgba(200,240,220,0.18) 80%, transparent 100%
+    );
+    filter: blur(34px);
+    animation: mist-drift-1 18s ease-in-out infinite alternate;
+}
+.j-mist-2 {
+    bottom: 14%;
+    height: 16%;
+    background: linear-gradient(90deg,
+        transparent 0%, rgba(205,242,224,0.13) 28%,
+        rgba(222,250,234,0.19) 56%, rgba(205,242,224,0.11) 80%, transparent 100%
+    );
+    filter: blur(44px);
+    opacity: 0.70;
+    animation: mist-drift-2 22s ease-in-out infinite alternate-reverse;
+}
+.j-mist-3 {
+    top: 12%;
+    height: 14%;
+    background: linear-gradient(90deg,
+        transparent 0%, rgba(190,228,210,0.09) 32%,
+        rgba(210,240,222,0.13) 60%, transparent 100%
+    );
+    filter: blur(52px);
+    opacity: 0.55;
+    animation: mist-drift-1 28s ease-in-out infinite alternate;
+}
+@keyframes mist-drift-1 {
+    0%   { transform: translateX(-6%) scaleX(1);    }
+    100% { transform: translateX(6%)  scaleX(1.12); }
+}
+@keyframes mist-drift-2 {
+    0%   { transform: translateX(4%)  scaleX(1.05); }
+    100% { transform: translateX(-5%) scaleX(1);    }
+}
+
+/* ─── Clouds ──────────────────────────────────────── */
+.j-clouds {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+        radial-gradient(ellipse 70% 24% at 18% 10%, rgba(245,252,248,0.07) 0%, transparent 75%),
+        radial-gradient(ellipse 55% 18% at 80% 6%,  rgba(245,252,248,0.05) 0%, transparent 75%),
+        radial-gradient(ellipse 45% 16% at 50% 20%, rgba(245,252,248,0.04) 0%, transparent 75%);
+    animation: cloud-drift 34s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+@keyframes cloud-drift {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-4%); }
+}
+
+/* ─── Overlay — dark theme (light veil so photo shows through) ── */
+.j-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(180deg,
+        rgba(0, 0, 0, 0.38) 0%,
+        rgba(0, 0, 0, 0.18) 20%,
+        rgba(0, 0, 0, 0.12) 50%,
+        rgba(0, 0, 0, 0.18) 80%,
+        rgba(0, 0, 0, 0.35) 100%
+    );
+    pointer-events: none;
+}
+
+/* ─── Overlay — light theme (airy, bright but readable) ── */
+[data-theme="light"] .j-overlay {
+    background: linear-gradient(180deg,
+        rgba(230, 252, 238, 0.60) 0%,
+        rgba(230, 252, 238, 0.28) 18%,
+        rgba(230, 252, 238, 0.16) 45%,
+        rgba(230, 252, 238, 0.28) 72%,
+        rgba(230, 252, 238, 0.55) 100%
+    );
+}
+
+/* ─── Light mode: hero text needs glass backing ─────── */
+[data-theme="light"] .hero-inner {
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(42, 143, 83, 0.22);
+    box-shadow: 0 8px 40px rgba(10, 40, 20, 0.12);
+}
+
+[data-theme="light"] .hero-name,
+[data-theme="light"] .hero-tagline,
+[data-theme="light"] .hero-kicker {
+    text-shadow: 0 1px 6px rgba(255,255,255,0.60);
+}
+
+/* ─── Light mode: keep cards transparent too ───────────────────── */
+[data-theme="light"] .pipe-node,
+[data-theme="light"] .impact-stat,
+[data-theme="light"] .skill-bar-item,
+[data-theme="light"] .skill-logo,
+[data-theme="light"] .proj-card,
+[data-theme="light"] .cert-card,
+[data-theme="light"] .about-photo-frame,
+[data-theme="light"] .about-badge {
+    background: transparent;
+    border-color: rgba(42,143,83,0.22);
+    box-shadow: none;
+}
+[data-theme="light"] .navbar       { background: rgba(248,255,252,0.82); }
+[data-theme="light"] .s-pipeline   { background: rgba(240,255,248,0.58); }
+[data-theme="light"] .ticker-wrap  { background: rgba(240,255,248,0.62); }
+[data-theme="light"] .site-footer  { background: rgba(240,255,248,0.80); }
+[data-theme="light"] .j-mist-1,
+[data-theme="light"] .j-mist-2,
+[data-theme="light"] .j-mist-3 {
+    background: linear-gradient(90deg,
+        transparent 0%, rgba(255,255,255,0.22) 28%,
+        rgba(255,255,255,0.30) 56%, rgba(255,255,255,0.18) 80%, transparent 100%
+    );
+}
+
+/* ─── Mobile ──────────────────────────────────────── */
+@media (max-width: 700px) {
+    .hero-inner {
+        padding: 2rem 1.4rem 2.4rem;
+        border-radius: 24px;
+    }
+    .pipe-node, .impact-stat, .skill-bar-item,
+    .proj-card, .cert-card { border-radius: 18px; }
+
+    .j-rain-canvas { opacity: 0.35; }
+    .j-mist-1, .j-mist-2, .j-mist-3 { filter: blur(20px); }
+}

@@ -6,6 +6,7 @@
     <title>Sushma Vunnam | Machine Learning Data Engineer</title>
     <meta name="description" content="Sushma Vunnam — Machine Learning Data Engineer. 500M+ records/day. Spark, Kafka, AWS, Delta Lake.">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="visual_styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
@@ -14,19 +15,31 @@
 
     <div class="scroll-bar" id="scroll-bar"></div>
 
-    <!-- ── PHOTO BACKDROP ── -->
-    <div class="photo-backdrop" aria-hidden="true">
-        <img src="./profile_new.png" alt="">
-    </div>
-
     <canvas id="bg-canvas"></canvas>
 
-    <!-- ── BACKGROUND PHOTO LAYER ── -->
-    <div class="bg-photos" aria-hidden="true">
-        <div class="bg-frame bp-1"><img src="./profile_new.png" alt=""></div>
-        <div class="bg-frame bp-2"><img src="./su.jpeg" alt=""></div>
-        <div class="bg-frame bp-3"><img src="./bridgerton_backdrop.png" alt=""></div>
-        <div class="bg-frame bp-4"><img src="./profile.jpg" alt=""></div>
+    <!-- ═══ JOURNEY BACKGROUND — single continuous nature frame ═══ -->
+    <div class="journey-bg" id="journey-bg" aria-hidden="true">
+
+        <!-- ONE continuous image — lush tropical rainforest with waterfall -->
+        <div class="j-frame">
+            <img id="j-main-img"
+                 src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2400&q=90"
+                 onerror="this.src='https://images.unsplash.com/photo-1431794062232-2a99a5431130?auto=format&fit=crop&w=2400&q=90'"
+                 alt="">
+        </div>
+
+        <!-- Rain, mist, clouds -->
+        <canvas class="j-rain-canvas" id="rain-canvas"></canvas>
+        <div class="j-mist j-mist-1"></div>
+        <div class="j-mist j-mist-2"></div>
+        <div class="j-mist j-mist-3"></div>
+        <div class="j-clouds"></div>
+
+        <!-- Readability overlay -->
+        <div class="j-overlay"></div>
+
+        <!-- Lightning flashes -->
+        <div class="j-lightning" id="j-lightning"></div>
     </div>
 
     <!-- ═══ NAVBAR ═══ -->
@@ -37,6 +50,7 @@
         </a>
 
         <nav class="nav-links" id="nav-links">
+            <a href="#story"      class="nav-link">Story</a>
             <a href="#about"      class="nav-link">About</a>
             <a href="#skills"     class="nav-link">Skills</a>
             <a href="#experience" class="nav-link">Experience</a>
@@ -56,7 +70,7 @@
         <!-- ── HERO ── -->
         <section id="hero" class="s-hero">
             <div class="hero-grid"></div>
-            <div class="hero-inner" id="hero-inner">
+            <div class="hero-inner" id="hero-inner" data-tilt>
                 <div class="hero-kicker hero-anim" style="--delay:0s">Machine Learning Data Engineer</div>
                 <h1 class="hero-name hero-anim" id="hero-name" style="--delay:0.12s">
                     <span class="line-1">Sushma</span>
@@ -72,11 +86,32 @@
 
                 <div class="hero-cta hero-anim" style="--delay:0.4s">
                     <a href="./resume.pdf" target="_blank" class="btn btn-primary">📄 Resume</a>
-                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
-                    <a href="https://www.linkedin.com/in/sushmav19" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+                    <a href="https://www.linkedin.com/in/sushmav19" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+                    <a href="#story" class="btn btn-ghost">Read my story ↓</a>
                 </div>
             </div>
             <div class="hero-scroll" aria-hidden="true">scroll</div>
+        </section>
+
+        <!-- ── MY STORY ── -->
+        <section id="story" class="s-story section">
+            <div class="story-inner">
+                <p class="t-eyebrow story-eyebrow reveal">My Story</p>
+                <h2 class="story-headline reveal reveal-d1">The engineer<br><span class="g-text">behind the pipeline.</span></h2>
+                <div class="story-body reveal reveal-d2">
+                    <p>I've always been drawn to bringing structure to complexity — whether that's organizing an event where every detail needs to fall into place, or building a data pipeline where every record needs to land exactly where it should.</p>
+                    <p>Outside of work, I enjoy planning and hosting events — decorating, organizing, and making sure everything comes together smoothly. That same instinct now shapes how I build reliable data systems.</p>
+                    <p>My journey started at <span class="story-highlight">Accenture</span>, where I worked with large datasets and messy, inconsistent data. I found myself genuinely enjoying the challenge of turning that complexity into something usable and dependable. That realization pushed me to pursue a <span class="story-highlight">Master's in Data Analytics Engineering at George Mason University</span>.</p>
+                    <p>Today, at <span class="story-highlight">Walmart Global Tech</span>, I build the pipelines that support forecasting, personalization, and supply-chain teams. I care deeply about performance, reliability, and creating systems that make real decisions easier.</p>
+                </div>
+                <div class="story-cta reveal reveal-d3">
+                    <p>I'm currently open to full-time <span class="story-highlight">Data Engineer roles in the US</span>. If you're building something that needs reliable, scalable data systems behind it — I'd love to connect.</p>
+                    <div class="hero-cta" style="margin-top:24px">
+                        <a href="#contact" class="btn btn-primary">Let's Talk</a>
+                        <a href="./resume.pdf" target="_blank" class="btn btn-outline">📄 Resume</a>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- ── PIPELINE DAG ── -->
@@ -191,8 +226,8 @@
                     </div>
                     <div class="about-right">
                         <div class="about-photo-wrap reveal">
-                            <div class="about-photo-frame" id="photo3d">
-                                <img src="./profile_new.png" alt="Sushma Vunnam">
+                            <div class="about-photo-frame" id="photo3d" data-tilt>
+                                <img src="./city_night.jpg" onerror="this.src='./su.jpeg'" alt="Sushma Vunnam">
                             </div>
                             <div class="about-badge">
                                 Walmart Global Tech<br>
@@ -200,9 +235,8 @@
                             </div>
                         </div>
                         <div class="about-bio reveal reveal-d2">
-                            <p>Whether organizing an event where every detail needs to fall into place, or building a data pipeline where every record needs to land exactly where it should — the mindset is the same. It started at <strong style="color:var(--text-1)">Accenture</strong>, where I found myself genuinely enjoying not just the technical side of handling large datasets, but the idea that clean, well-structured data actually helps people make better decisions.</p>
-                            <p style="margin-top:12px">That realization pushed me to pursue a <strong style="color:var(--text-1)">Master's in Data Analytics Engineering</strong> at George Mason University. Today at <strong style="color:var(--text-1)">Walmart Global Tech</strong>, I design and maintain the pipelines that supply chain, forecasting, and personalization teams depend on — processing <strong style="color:var(--text-1)">100M+ daily records</strong> across the full stack: ingestion, transformation, validation, and delivery.</p>
-                            <p style="margin-top:12px">What drives me is the moment a stakeholder finally understands something that used to feel opaque — or another team moves faster because a pipeline I built just works. That intersection of <strong style="color:var(--text-1)">solid infrastructure and real business impact</strong> is where I do my best work.</p>
+                            <p>I build data systems that are reliable, scalable, and tuned for real business needs — with a focus on streaming pipelines, lakehouse architecture, and observability.</p>
+                            <p style="margin-top:12px">My work spans Spark, Kafka, Delta Lake, dbt, Python, and cloud platforms, with an emphasis on performance, clean architecture, and measurable impact.</p>
                         </div>
                         <div class="hero-cta reveal reveal-d3">
                             <a href="./resume.pdf" target="_blank" class="btn btn-primary">📄 Resume</a>
@@ -497,28 +531,6 @@
                             <p class="cert-org">Accenture India</p>
                             <p class="cert-date">Feb 2021</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── MY STORY ── -->
-        <section id="story" class="s-story section">
-            <div class="story-inner">
-                <p class="t-eyebrow story-eyebrow reveal">My Story</p>
-                <h2 class="story-headline reveal reveal-d1">The engineer<br><span class="g-text">behind the pipeline.</span></h2>
-                <div class="story-body reveal reveal-d2">
-                    <p>I've always been drawn to bringing structure to complexity — whether that's organizing an event where every detail needs to fall into place, or building a data pipeline where every record needs to land exactly where it should.</p>
-                    <p>Outside of work, I enjoy planning and hosting events — decorating, organizing, making sure everything comes together smoothly. There's something deeply satisfying about starting with a blank space and a lot of moving pieces, and ending with something that just works. I didn't realize it at the time, but that's exactly the mindset that makes a good data engineer.</p>
-                    <p>It started at <span class="story-highlight">Accenture</span>, where my work involved handling large datasets and cleaning messy, inconsistent data. I found myself genuinely enjoying it — not just the technical side, but the idea that clean, well-structured data actually helps people make better decisions. That realization pushed me to pursue a <span class="story-highlight">Master's in Data Analytics Engineering at George Mason University</span>, where I built a deeper foundation in data modeling, distributed systems, and applied machine learning.</p>
-                    <p>Today, at <span class="story-highlight">Walmart Global Tech</span>, I design and maintain the pipelines that teams across supply chain, forecasting, and personalization depend on. I work across the full stack — ingestion, transformation, validation, and delivery — processing <span class="story-highlight">100M+ daily records</span> with a focus on reliability and accuracy.</p>
-                    <p>What drives me isn't just the engineering. It's the moment a stakeholder looks at a dashboard and finally understands something that used to feel opaque. It's another team moving faster because a pipeline I built just works. That intersection of <span class="story-highlight">solid infrastructure and real business impact</span> is where I do my best work.</p>
-                </div>
-                <div class="story-cta reveal reveal-d3">
-                    <p>I'm currently open to full-time <span class="story-highlight">Data Engineer roles in the US</span>. If you're building something that needs reliable, scalable data systems behind it — I'd love to connect.</p>
-                    <div class="hero-cta" style="margin-top:24px">
-                        <a href="#contact" class="btn btn-primary">Let's Talk</a>
-                        <a href="./resume.pdf" target="_blank" class="btn btn-outline">📄 Resume</a>
                     </div>
                 </div>
             </div>
