@@ -109,11 +109,11 @@ body {
 .about-photo-frame,
 .about-badge {
     position: relative;
-    border: 1px solid rgba(57, 201, 108, 0.22);
-    background: transparent;
+    border: 1px solid rgba(57, 201, 108, 0.20);
+    background: rgba(0, 0, 0, 0.22);
     box-shadow: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     transform-style: preserve-3d;
 }
 
@@ -362,7 +362,7 @@ body {
     text-shadow: 0 1px 6px rgba(255,255,255,0.60);
 }
 
-/* ─── Light mode: keep cards transparent too ───────────────────── */
+/* ─── Light mode cards ─────────────────────────── */
 [data-theme="light"] .pipe-node,
 [data-theme="light"] .impact-stat,
 [data-theme="light"] .skill-bar-item,
@@ -371,7 +371,7 @@ body {
 [data-theme="light"] .cert-card,
 [data-theme="light"] .about-photo-frame,
 [data-theme="light"] .about-badge {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.22);
     border-color: rgba(42,143,83,0.22);
     box-shadow: none;
 }
